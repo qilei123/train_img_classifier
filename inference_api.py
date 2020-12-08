@@ -14,7 +14,7 @@ import argparse
 import csv
 #sys.path.insert(0,'/media/cql/DATA1/Development/vision2')
 #sys.path.insert(0,'/data0/qilei_chen/Development/vision2')
-sys.path.insert(0,'/data1/qilei_chen/DEVELOPMENTS/vision2')
+#sys.path.insert(0,'/data1/qilei_chen/DEVELOPMENTS/vision2')
 import torchvision
 from torchvision import datasets, models, transforms
 #from networks import *
@@ -226,7 +226,7 @@ class classifier:
     def softmax(self,x):
         return np.exp(x) / np.sum(np.exp(x), axis=0)
     def ini_model(self,model_dir):
-        checkpoint = torch.load(model_dir,map_location={'cuda:0': 'cpu'})
+        checkpoint = torch.load(model_dir)
         #self.model.load_state_dict(checkpoint['model_state_dict'])
         self.model.load_state_dict(checkpoint)
         
@@ -484,6 +484,8 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     
     for img_file in img_files:
         prelabel = model.predict1(img_file)
+        print(img_file)
+        print(prelabel)
         img_name = os.path.basename(img_file)
         records.write(img_name+" "+str(prelabel)+"\n")
 '''        
@@ -541,11 +543,11 @@ for model_name in model_names:
 '''
 
 #model_names = ['vgg11','densenet121','densenet161','inception3','mobilenetv2']
-model_names = ['inception3','mobilenetv2']
-labels = [0,1,2,3,4]
-img_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/val/"
-class_num = 5
+model_names = ['inception3']
+labels = [0,1]
+img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
+class_num = 2
 for model_name in model_names:
-    model_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/"+model_name+"/best.model"
+    model_dir = "/data1/qilei_chen/DATA/gastro/binary/test1/"+model_name+"/best.model"
     for label in labels:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
