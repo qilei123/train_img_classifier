@@ -58,6 +58,8 @@ parser.add_argument('--gpu', '-g', help='set the gpu id', default=0)
 parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
 parser.add_argument('--learningrate', '-l', help='set the learning rate', default=0.001)
+parser.add_argument('--stepsize', '-s', help='set the learning step size', default=10)
+parser.add_argument('--gamma', '-m', help='set the learning gamma', default=0.5)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 args = parser.parse_args()
@@ -68,6 +70,8 @@ gpu_id = args.gpu
 category_number = int(args.category)
 batch_size = int(args.batchsize)
 learning_rate = float(args.learningrate)
+step_size=int(args.stepsize)
+gamma=float(args.gamma)
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
 
@@ -554,7 +558,7 @@ optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
 #optimizer_ft = optim.Adam(model_ft.parameters(), lr=learning_rate)
 
 # Decay LR by a factor of 0.1 every 7 epochs
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=10, gamma=0.5)
+exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=step_size, gamma=gamma)
 
 ######################################################################
 # Train and evaluate
