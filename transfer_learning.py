@@ -54,11 +54,14 @@ import argparse
 
 parser = argparse.ArgumentParser(description='model name')
 parser.add_argument('--model', '-m', help='set the training model', default="alexnet")
+parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 args = parser.parse_args()
 
-category_number = 2
-model_name = "vgg11"
+
+model_name = args.model
+category_number = args.category
+data_dir = args.datadir
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -338,7 +341,7 @@ data_transforms = {
     ]),
 }
 
-data_dir = '/data1/qilei_chen/DATA/gastro/binary'
+
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
