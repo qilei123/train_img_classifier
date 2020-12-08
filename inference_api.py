@@ -542,7 +542,7 @@ for model_name in model_names:
 
 model_names = ['vgg11','densenet121','densenet161','inception3','mobilenetv2']
 labels = [0,1]
-img_dir = "/data1/qilei_chen/DATA/gastro/binary/test1/val/"
+img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 class_num = 2
 for model_name in model_names:
     model_dir = "/data1/qilei_chen/DATA/gastro/binary/test1/"+model_name+"/best.model"
