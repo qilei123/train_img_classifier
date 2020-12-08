@@ -427,7 +427,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
     if os.path.exists(outputdir+'/best.txt'):
         best_acc_txt = open(outputdir+'/best.txt')
         best_acc = best_acc_txt.readline()
-        print(best_acc)
         if '0' in best_acc:
             best_acc=float(best_acc)
         else:
@@ -498,7 +497,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                 
                 torch.save(best_model_wts, outputdir+'/best.model')
                 best_acc_txt = open(outputdir+'/best.txt','w')
-                best_acc_txt.write(str(best_acc))
+                best_acc_txt.write('{:6f}'.format(best_acc))
 
             if phase == "val":
                 torch.save(model.state_dict(), outputdir+'/latest.model')
