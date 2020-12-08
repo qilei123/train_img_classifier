@@ -233,21 +233,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
     elif model_name == "densenet201":
         """ Densenet
         """
-        model_ft = models.densenet201(pretrained=use_pretrained)data_transforms = {
-    'train': transforms.Compose([
-        transforms.RandomResizedCrop(input_size),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(input_size),
-        transforms.CenterCrop(input_size),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-}
+        model_ft = models.densenet201(pretrained=use_pretrained)
         num_ftrs = model_ft.classifier.in_features
         model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
         input_size = 224
