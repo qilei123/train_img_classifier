@@ -480,7 +480,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     
     model.ini_model(model_dir)
 
-    records = open(model_dir+"_"+str(label)+".txt",'w')
+    #records = open(model_dir+"_"+str(label)+".txt",'w')
 
     img_files = glob.glob(os.path.join(img_dir,str(label),"*.jpg"))
     
@@ -489,7 +489,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
         print(img_file)
         print(prelabel)
         img_name = os.path.basename(img_file)
-        records.write(img_name+" "+str(prelabel)+"\n")
+        #records.write(img_name+" "+str(prelabel)+"\n")
 '''        
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 model_name = "vgg11"
@@ -545,11 +545,11 @@ for model_name in model_names:
 '''
 
 #model_names = ['vgg11','densenet121','densenet161','inception3','mobilenetv2']
-model_names = ['inception3']
+model_names = ['mobilenetv2']
 labels = [0,1]
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 class_num = 2
 for model_name in model_names:
-    model_dir = "/data1/qilei_chen/DATA/gastro/binary/test2/"+model_name+"/best.model"
+    model_dir = "/data1/qilei_chen/DATA/gastro/binary/test1/"+model_name+"/best.model"
     for label in labels:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
