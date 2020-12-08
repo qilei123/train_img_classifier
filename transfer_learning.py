@@ -426,7 +426,11 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
 
     if os.path.exists(outputdir+'/best.txt'):
         best_acc_txt = open(outputdir+'/best.txt')
-        best_acc = float(best_acc_txt.readline())
+        best_acc = best_acc_txt.readline()
+        if best_acc=="":
+            best_acc=0
+        else:
+            best_acc = float(best_acc)
     else:
         best_acc = 0.0
 
