@@ -56,12 +56,14 @@ parser = argparse.ArgumentParser(description='model name')
 parser.add_argument('--model', '-m', help='set the training model', default="alexnet")
 parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
+parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary")
 args = parser.parse_args()
 
 
 model_name = args.model
 category_number = args.category
 data_dir = args.datadir
+outputdir = os.path.join(args.outputdir,model_name)
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -288,9 +290,12 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         input_size=299
 
     elif model_name == "mobilenetv2":
-        """ Densenet
-        """
         model_ft = models.mobilenet_v2(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[1].in_features
+        model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+    elif model_name == "mnasnet0_5":
+        model_ft = models.mnasnet0_5(pretrained=use_pretrained)
         num_ftrs = model_ft.classifier[1].in_features
         model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
         input_size = 224
@@ -458,6 +463,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
+
+                if not os.path.exists(outputdir):
+                    os.makedirs(outputdir)
+
+                torch.save(best_model_wts, outputdir+'/best.model')
+
 
         print()
 
