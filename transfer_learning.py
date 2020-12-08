@@ -50,7 +50,7 @@ import copy
 plt.ion()   # interactive mode
 
 category_number = 2
-model_name = "inception3"
+model_name = "mobilenetv2"
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -334,7 +334,7 @@ data_dir = '/data1/qilei_chen/DATA/gastro/binary'
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=8,
                                              shuffle=True, num_workers=4)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
