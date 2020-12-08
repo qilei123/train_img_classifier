@@ -47,6 +47,8 @@ import time
 import os
 import copy
 
+from torchvision.transforms.transforms import Grayscale
+
 plt.ion()   # interactive mode
 
 
@@ -64,6 +66,7 @@ parser.add_argument('--stepsize', '-s', help='set the learning step size', defau
 parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
+parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', default=False)
 
 args = parser.parse_args()
 
@@ -79,7 +82,7 @@ step_size=int(args.stepsize)
 gamma=float(args.gamma)
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
-
+with_grayscale = args.grayscale
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -351,23 +354,44 @@ if os.path.exists(outputdir+'/latest.model'):
 
 # Data augmentation and normalization for training
 # Just normalization for validation
-data_transforms = {
-    'train': transforms.Compose([
-        #transforms.RandomResizedCrop(input_size),
-        transforms.Resize((input_size,input_size)),
-        #transforms.CenterCrop(input_size),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize((input_size,input_size)),
-        #transforms.CenterCrop(input_size),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-}
+if with_grayscale:
+    data_transforms = {
+        'train': transforms.Compose([
+            #transforms.RandomResizedCrop(input_size),
+            transforms.Resize((input_size,input_size)),
+            transforms.Grayscale(3),
+            #transforms.CenterCrop(input_size),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize((input_size,input_size)),
+            transforms.Grayscale(3),
+            #transforms.CenterCrop(input_size),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    } 
+else:   
+    data_transforms = {
+        'train': transforms.Compose([
+            #transforms.RandomResizedCrop(input_size),
+            transforms.Resize((input_size,input_size)),
+            #transforms.CenterCrop(input_size),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize((input_size,input_size)),
+            #transforms.CenterCrop(input_size),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }
 
 
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
