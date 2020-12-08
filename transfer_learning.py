@@ -67,7 +67,7 @@ model_name = args.model
 gpu_id = args.gpu
 category_number = int(args.category)
 batch_size = int(args.batchsize)
-learning_rate = args.learningrate
+learning_rate = float(args.learningrate)
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
 
