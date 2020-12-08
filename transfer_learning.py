@@ -50,7 +50,7 @@ import copy
 plt.ion()   # interactive mode
 
 category_number = 2
-model_name = "inception3"
+model_name = "vgg11"
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
