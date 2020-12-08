@@ -466,7 +466,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
-            print('Best val Acc: {:4f}'.format(best_acc))
+            
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
@@ -477,6 +477,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                 
                 torch.save(best_model_wts, outputdir+'/best.model')
 
+            if phase == "val":
+                print('Best val Acc: {:4f}'.format(best_acc))
 
         print()
 
