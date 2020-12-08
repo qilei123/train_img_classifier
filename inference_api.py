@@ -248,6 +248,8 @@ class classifier:
         inputs = inputs.view(1, inputs.size(0), inputs.size(1), inputs.size(2)) # add batch dim in the front
 
         outputs = self.model(inputs)
+        _, preds = torch.max(outputs, 1)
+        print(preds)
         softmax_res = self.softmax(outputs.data.cpu().numpy()[0])
         probilities = []
         for probility in softmax_res:
