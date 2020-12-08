@@ -383,7 +383,7 @@ out = torchvision.utils.make_grid(inputs)
 # ``torch.optim.lr_scheduler``.
 
 
-def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
+def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_inception=False):
     since = time.time()
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -414,9 +414,16 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                 # forward
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
-                    outputs = model(inputs)
-                    _, preds = torch.max(outputs, 1)
-                    loss = criterion(outputs, labels)
+                    if is_inception:
+                        outputs, aux_outputs = model(inputs)
+                        loss1 = criterion(outputs, labels)
+                        loss2 = criterion(aux_outputs, labels)
+                        
+                        loss = loss1 + 0.4*loss2
+                    else:
+                        outputs = model(inputs)
+                        _, preds = torch.max(outputs, 1)
+                        loss = criterion(outputs, labels)
 
                     # backward + optimize only if in training phase
                     if phase == 'train':
