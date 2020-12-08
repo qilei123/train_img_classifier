@@ -64,6 +64,7 @@ parser.add_argument('--stepsize', '-s', help='set the learning step size', defau
 parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
+
 args = parser.parse_args()
 
 
@@ -322,10 +323,11 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
 
 
 model_ft,input_size = initialize_model(model_name,category_number)
+'''
 if os.path.exists(outputdir+'/latest.model'):
     checkpoint = torch.load(outputdir+'/latest.model')
     model_ft.load_state_dict(checkpoint)    
-
+'''
 ######################################################################
 # Load Data
 # ---------
@@ -433,7 +435,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
             best_acc = 0.0
     else:
         best_acc = 0.0
-
+    best_acc = 0.0
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
