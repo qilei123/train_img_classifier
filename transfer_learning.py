@@ -419,7 +419,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
     since = time.time()
 
     best_model_wts = copy.deepcopy(model.state_dict())
-    best_acc = 0.0
+
+    if os.path.exists(outputdir+'/best.txt'):
+        best_acc_txt = open(outputdir+'/best.txt')
+        best_acc = float(best_acc_txt.readline())
+    else:
+        best_acc = 0.0
 
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
@@ -483,6 +488,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                     os.makedirs(outputdir)
                 
                 torch.save(best_model_wts, outputdir+'/best.model')
+                best_acc_txt = open(outputdir+'/best.txt','w')
+                best_acc_txt.write(best_acc)
 
             if phase == "val":
                 torch.save(model.state_dict(), outputdir+'/latest.model')
