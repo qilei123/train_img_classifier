@@ -226,7 +226,7 @@ class classifier:
     def softmax(self,x):
         return np.exp(x) / np.sum(np.exp(x), axis=0)
     def ini_model(self,model_dir):
-        checkpoint = torch.load(model_dir)
+        checkpoint = torch.load(model_dir,map_location = self.device)
         #self.model.load_state_dict(checkpoint['model_state_dict'])
         self.model.load_state_dict(checkpoint)
         
