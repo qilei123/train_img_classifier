@@ -57,6 +57,7 @@ parser.add_argument('--model', '-m', help='set the training model', default="ale
 parser.add_argument('--gpu', '-g', help='set the gpu id', default=0)
 parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
+parser.add_argument('--epoch', '-e', help='set the epoch', default=50)
 parser.add_argument('--learningrate', '-l', help='set the learning rate', default=0.001)
 parser.add_argument('--stepsize', '-s', help='set the learning step size', default=10)
 parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
@@ -69,6 +70,7 @@ model_name = args.model
 gpu_id = args.gpu
 category_number = int(args.category)
 batch_size = int(args.batchsize)
+epoch = int(args.epoch)
 learning_rate = float(args.learningrate)
 step_size=int(args.stepsize)
 gamma=float(args.gamma)
@@ -580,7 +582,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=step_size, gamma=
 #
 
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=50,is_inception=("inception" in model_name))
+                       num_epochs=epoch,is_inception=("inception" in model_name))
 
 ######################################################################
 #
