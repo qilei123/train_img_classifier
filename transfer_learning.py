@@ -59,7 +59,7 @@ parser.add_argument('--category', '-c', help='set the category number', default=
 parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
 parser.add_argument('--learningrate', '-l', help='set the learning rate', default=0.001)
 parser.add_argument('--stepsize', '-s', help='set the learning step size', default=10)
-parser.add_argument('--gamma', '-m', help='set the learning gamma', default=0.5)
+parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 args = parser.parse_args()
