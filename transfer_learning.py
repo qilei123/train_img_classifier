@@ -50,6 +50,7 @@ import copy
 plt.ion()   # interactive mode
 
 category_number = 2
+model_name = "inception3"
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -289,7 +290,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
     return model_ft, input_size
 
 
-model_ft,input_size = initialize_model("inception3",category_number)
+model_ft,input_size = initialize_model(model_name,category_number)
 
 ######################################################################
 # Load Data
@@ -531,7 +532,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=10, gamma=0.1)
 #
 
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=50)
+                       num_epochs=50,is_inception=("inception" in model_name))
 
 ######################################################################
 #
