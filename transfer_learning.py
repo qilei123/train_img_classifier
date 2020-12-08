@@ -57,6 +57,7 @@ parser.add_argument('--model', '-m', help='set the training model', default="ale
 parser.add_argument('--gpu', '-g', help='set the gpu id', default=0)
 parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
+parser.add_argument('--learningrate', '-l', help='set the learning rate', default=0.001)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 args = parser.parse_args()
@@ -66,6 +67,7 @@ model_name = args.model
 gpu_id = args.gpu
 category_number = int(args.category)
 batch_size = int(args.batchsize)
+learning_rate = args.learningrate
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
 
@@ -231,7 +233,21 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
     elif model_name == "densenet201":
         """ Densenet
         """
-        model_ft = models.densenet201(pretrained=use_pretrained)
+        model_ft = models.densenet201(pretrained=use_pretrained)data_transforms = {
+    'train': transforms.Compose([
+        transforms.RandomResizedCrop(input_size),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+    'val': transforms.Compose([
+        transforms.Resize(input_size),
+        transforms.CenterCrop(input_size),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ]),
+}
         num_ftrs = model_ft.classifier.in_features
         model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
         input_size = 224
@@ -464,7 +480,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
-
+            print('Best val Acc: {:4f}'.format(best_acc))
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
@@ -472,7 +488,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
 
                 if not os.path.exists(outputdir):
                     os.makedirs(outputdir)
-
+                
                 torch.save(best_model_wts, outputdir+'/best.model')
 
 
@@ -546,7 +562,7 @@ model_ft = model_ft.to(device)
 criterion = nn.CrossEntropyLoss()
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9)
+optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
 
 # Decay LR by a factor of 0.1 every 7 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=5, gamma=0.1)
