@@ -49,6 +49,14 @@ import copy
 
 plt.ion()   # interactive mode
 
+
+import argparse
+
+parser = argparse.ArgumentParser(description='model name')
+parser.add_argument('--model', '-m', help='set the training model', default="alexnet")
+parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
+args = parser.parse_args()
+
 category_number = 2
 model_name = "vgg11"
 
@@ -415,7 +423,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                 # forward
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
-                    if is_inception:
+                    if is_inception and phase == 'train':
                         outputs, aux_outputs = model(inputs)
                         loss1 = criterion(outputs, labels)
                         loss2 = criterion(aux_outputs, labels)
