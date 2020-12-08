@@ -489,7 +489,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                 
                 torch.save(best_model_wts, outputdir+'/best.model')
                 best_acc_txt = open(outputdir+'/best.txt','w')
-                best_acc_txt.write(best_acc)
+                best_acc_txt.write(float(best_acc))
 
             if phase == "val":
                 torch.save(model.state_dict(), outputdir+'/latest.model')
