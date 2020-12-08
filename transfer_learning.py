@@ -54,16 +54,21 @@ import argparse
 
 parser = argparse.ArgumentParser(description='model name')
 parser.add_argument('--model', '-m', help='set the training model', default="alexnet")
+parser.add_argument('--gpu', '-g', help='set the gpu id', default=0)
 parser.add_argument('--category', '-c', help='set the category number', default=2)
+parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
-parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary")
+parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 args = parser.parse_args()
 
 
 model_name = args.model
+gpu_id = args.gpu
 category_number = args.category
+batch_size = args.batchsize
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
+
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -350,13 +355,13 @@ data_transforms = {
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=8,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size,
                                              shuffle=True, num_workers=4)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
 
 ######################################################################
 # Visualize a few images
