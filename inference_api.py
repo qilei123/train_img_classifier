@@ -236,7 +236,7 @@ class classifier:
         cudnn.benchmark = True
         self.model.eval()
     def predict(self,img):
-        #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         #image = Image.open(img_dir).convert('RGB')
         image = Image.fromarray(img)
         t1 = datetime.datetime.now()
