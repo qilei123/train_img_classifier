@@ -550,6 +550,6 @@ labels = [0,1]
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 class_num = 2
 for model_name in model_names:
-    model_dir = "/data1/qilei_chen/DATA/gastro/binary/test2/"+model_name+"/best.model"
+    model_dir = "/data1/qilei_chen/DATA/gastro/binary/test2/"+model_name+"/latest.model"
     for label in labels:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
