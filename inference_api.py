@@ -242,7 +242,7 @@ class classifier:
         t1 = datetime.datetime.now()
         image = self.test_transform(image)
         inputs = image
-        inputs = Variable(inputs, volatile=True)
+        inputs = Variable(inputs)
         
         inputs = inputs.to(self.device)
         inputs = inputs.view(1, inputs.size(0), inputs.size(1), inputs.size(2)) # add batch dim in the front
