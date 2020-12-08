@@ -318,6 +318,9 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
 
 
 model_ft,input_size = initialize_model(model_name,category_number)
+if os.path.exists(outputdir+'/latest.model'):
+    checkpoint = torch.load(outputdir+'/latest.model')
+    model_ft.load_state_dict(checkpoint)    
 
 ######################################################################
 # Load Data
@@ -482,6 +485,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
                 torch.save(best_model_wts, outputdir+'/best.model')
 
             if phase == "val":
+                torch.save(model.state_dict(), outputdir+'/latest.model')
                 print('Best val Acc: {:4f}'.format(best_acc))
 
         print()
