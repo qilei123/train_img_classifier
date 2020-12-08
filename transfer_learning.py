@@ -58,6 +58,7 @@ parser.add_argument('--gpu', '-g', help='set the gpu id', default=0)
 parser.add_argument('--category', '-c', help='set the category number', default=2)
 parser.add_argument('--batchsize', '-b', help='set the batchsize', default=8)
 parser.add_argument('--epoch', '-e', help='set the epoch', default=50)
+parser.add_argument('--adam', '-p', help='set the adam', default=False,Type = bool)
 parser.add_argument('--learningrate', '-l', help='set the learning rate', default=0.001)
 parser.add_argument('--stepsize', '-s', help='set the learning step size', default=10)
 parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
@@ -71,6 +72,7 @@ gpu_id = args.gpu
 category_number = int(args.category)
 batch_size = int(args.batchsize)
 epoch = int(args.epoch)
+adam = args.adam
 learning_rate = float(args.learningrate)
 step_size=int(args.stepsize)
 gamma=float(args.gamma)
@@ -567,8 +569,10 @@ model_ft = model_ft.to(device)
 criterion = nn.CrossEntropyLoss()
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
-#optimizer_ft = optim.Adam(model_ft.parameters(), lr=learning_rate)
+if not adam:
+    optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
+else:
+    optimizer_ft = optim.Adam(model_ft.parameters(), lr=learning_rate)
 
 # Decay LR by a factor of 0.1 every 7 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=step_size, gamma=gamma)
