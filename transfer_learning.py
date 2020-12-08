@@ -49,6 +49,248 @@ import copy
 
 plt.ion()   # interactive mode
 
+category_number = 2
+
+def initialize_model(model_name, num_classes, use_pretrained=True):
+    # Initialize these variables which will be set in this if statement. Each of these
+    #   variables is model specific.
+    model_ft = None
+    input_size = 0
+
+    if model_name == "resnet18":
+        """ Resnet18
+        """
+        model_ft = models.resnet18(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+    elif model_name == "resnet34":
+        """ Resnet34
+        """
+        model_ft = models.resnet34(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+    elif model_name == "resnet50":
+        model_ft = models.resnet50(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "resnet101":
+        model_ft = models.resnet101(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "resnet152":
+        model_ft = models.resnet152(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "resnext50_32x4d":
+        model_ft = models.resnext50_32x4d(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224   
+
+    elif model_name == "resnext101_32x8d":
+        model_ft = models.resnext50_32x4d(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224         
+
+    elif model_name == "alexnet":
+        """ Alexnet
+        """
+        model_ft = models.alexnet(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg11":
+
+        model_ft = models.vgg11(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg13":
+
+        model_ft = models.vgg13(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg16":
+
+        model_ft = models.vgg16(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg19":
+
+        model_ft = models.vgg19(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg11_bn":
+
+        model_ft = models.vgg11_bn(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg13_bn":
+
+        model_ft = models.vgg13_bn(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg16_bn":
+
+        model_ft = models.vgg16_bn(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "vgg19_bn":
+
+        model_ft = models.vgg19_bn(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "squeezenet1_0":
+        model_ft = models.squeezenet1_0(pretrained=use_pretrained)
+        model_ft.classifier[1] = nn.Conv2d(512, num_classes, kernel_size=(1,1), stride=(1,1))
+        model_ft.num_classes = num_classes
+        input_size = 224
+
+    elif model_name == "squeezenet1_1":
+        model_ft = models.squeezenet1_1(pretrained=use_pretrained)
+        model_ft.classifier[1] = nn.Conv2d(512, num_classes, kernel_size=(1,1), stride=(1,1))
+        model_ft.num_classes = num_classes
+        input_size = 224
+
+    elif model_name == "densenet":
+        """ Densenet
+        """
+        model_ft = models.densenet121(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "densenet121":
+        """ Densenet
+        """
+        model_ft = models.densenet121(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "densenet161":
+        """ Densenet
+        """
+        model_ft = models.densenet161(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "densenet169":
+        """ Densenet
+        """
+        model_ft = models.densenet169(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "densenet201":
+        """ Densenet
+        """
+        model_ft = models.densenet201(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "shufflenetv2_x0_5":
+        """ Densenet
+        """
+        model_ft = models.shufflenetv2_x0_5(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "shufflenetv2_x1_0":
+        """ Densenet
+        """
+        model_ft = models.shufflenetv2_x1_0(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "shufflenetv2_x1_5":
+        """ Densenet
+        """
+        model_ft = models.shufflenetv2_x1_5(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes) 
+        input_size = 224
+
+    elif model_name == "shufflenetv2_x2_0":
+        """ Densenet
+        """
+        model_ft = models.shufflenetv2_x2_0(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 224
+
+    elif model_name == "inception3":
+        """ Inception v3 
+        Be careful, expects (299,299) sized images and has auxiliary output
+        """
+        model_ft = models.inception_v3(pretrained=use_pretrained)
+        # Handle the auxilary net
+        num_ftrs = model_ft.AuxLogits.fc.in_features
+        model_ft.AuxLogits.fc = nn.Linear(num_ftrs, num_classes)
+        # Handle the primary net
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs,num_classes)
+        input_size = 299
+
+    elif model_name == "inceptionv4":
+        """ Inception v4
+        Be careful, expects (299,299) sized images and has auxiliary output
+        """
+        model_ft = models.inceptionv4(pretrained=use_pretrained)
+        # Handle the auxilary net
+        num_ftrs = model_ft.AuxLogits.fc.in_features
+        model_ft.AuxLogits.fc = nn.Linear(num_ftrs, num_classes)
+        # Handle the primary net
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs,num_classes)
+        input_size=299
+
+    elif model_name == "mobilenetv2":
+        """ Densenet
+        """
+        model_ft = models.mobilenet_v2(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[1].in_features
+        model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+    else:
+        print("Invalid model name, exiting...")
+        exit()
+    
+    return model_ft, input_size
+
+
+model_ft,input_size = initialize_model("inception3",category_number)
+
 ######################################################################
 # Load Data
 # ---------
@@ -74,14 +316,14 @@ plt.ion()   # interactive mode
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.RandomResizedCrop(224),
+        transforms.RandomResizedCrop(input_size),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
     'val': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
+        transforms.Resize(input_size),
+        transforms.CenterCrop(input_size),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
@@ -256,9 +498,12 @@ num_ftrs = model_ft.classifier[6].in_features
 # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
 model_ft.fc = nn.Linear(num_ftrs, 2)
 '''
+'''
 model_ft = models.densenet121(pretrained=True)
 num_ftrs = model_ft.classifier.in_features
 model_ft.classifier = nn.Linear(num_ftrs, 2) 
+'''
+
 
 model_ft = model_ft.to(device)
 
