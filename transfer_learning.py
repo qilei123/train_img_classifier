@@ -309,7 +309,9 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
         input_size = 224
     elif model_name == "inceptionv4":
-        model_ft = inceptionv4(num_classes=num_classes, pretrained='imagenet')
+        model_ft = inceptionv4()
+        num_ftrs = model_ft.last_linear.in_features
+        model_ft.last_linear = nn.Linear(num_ftrs,num_classes)
         input_size = 299
     else:
         print("Invalid model name, exiting...")
