@@ -553,6 +553,7 @@ for model_name in model_names:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 '''
 
+'''
 #model_names = ['vgg11','densenet121','densenet161','inception3','mobilenetv2']
 model_names = ['mobilenetv2']
 labels = [0,1]
@@ -562,3 +563,140 @@ for model_name in model_names:
     model_dir = "/data1/qilei_chen/DATA/gastro/binary/test1/"+model_name+"/best.model"
     for label in labels:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
+'''
+
+def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
+    os.system("export OMP_NUM_THREADS=2")
+    print("start ini model")
+    model = classifier(224,model_name=model_name,class_num_=4)
+
+    #model1 = classifier(224,model_name=model_name,class_num_=4,device_id=1)
+
+    #model_dir = '/data2/qilei_chen/DATA/GI_4_NEW_GRAY/finetune_4_new_oimg_'+model_name+'/best.model'
+
+    model.ini_model(model_dir)
+    print("finish ini model")
+    #model1.ini_model(model_dir)
+
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/weijingshi4/"
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+    '''
+    big_roi = [441, 1, 1278, 720]
+    small_roi = [156, 40, 698, 527]
+
+    roi = big_roi
+    '''
+    video_start = -1#15
+
+    video_suffix = ".avi"
+    
+    video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
+    #print(video_file_dir_list)
+    #return
+    if not os.path.exists(videos_result_folder):
+        os.makedirs(videos_result_folder)
+    video_count=0
+    for video_file_dir in video_file_dir_list:
+        
+        if video_count>video_start:
+            print(video_file_dir)
+            count=1
+
+            video = cv2.VideoCapture(video_file_dir)
+
+            success,frame = video.read()
+        
+            video_name = os.path.basename(video_file_dir)
+
+            records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix,".txt"))
+            records_file_header = open(records_file_dir,"w")
+
+            fps = video.get(cv2.CAP_PROP_FPS)
+            frame_size = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+            #show_result_video_dir = os.path.join(videos_result_folder,video_name)
+            #videoWriter = cv2.VideoWriter(show_result_video_dir,cv2.VideoWriter_fourcc("P", "I", "M", "1"),fps,frame_size)
+            #print(show_result_video_dir)
+            while success:
+                '''
+                frame_roi = frame[roi[1]:roi[3],roi[0]:roi[2]]
+                predict_label = model.predict(frame_roi)
+                '''
+                predict_label = model.predict(frame)
+                #predict_label1 = model1.predict(frame)
+                records_file_header.write(str(count)+" "+str(predict_label)+"\n")
+                #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame_roi)
+                #cv2.putText(frame,str(count)+":"+str(predict_label),(50,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),3,cv2.LINE_AA)
+                #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame)
+                #videoWriter.write(frame)
+                #print(predict_label)
+                success,frame = video.read()
+                count+=1
+                '''
+                if count%10000==0:
+                    print(count)
+                '''
+        
+        video_count+=1
+import threading
+if __name__ == "__main__":
+    model_name="densenet161"
+    model_dir = "/data2/qilei_chen/DATA/GI_4_NEW/grayscale/"+model_name+"/best.model"
+    '''
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+    
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+    '''
+    try:
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+    except:
+        print("Error: unable to start thread")
+
+    pass
+
+    model_name="mobilenetv2"
+    model_dir = "/data2/qilei_chen/DATA/GI_4_NEW/grayscale/"+model_name+"/best.model"
+    '''
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+    
+    videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+    '''
+    try:
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+        videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+        videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+        threading.Thread( process_4_situation_videos_gray, (videos_folder_dir,model_dir,model_name,videos_result_folder) ).start()
+    except:
+        print("Error: unable to start thread")
+
+    pass
+
