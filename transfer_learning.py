@@ -47,6 +47,9 @@ import time
 import os
 import copy
 
+import inceptionv4
+from inceptionv4 import *
+
 from torchvision.transforms.transforms import Grayscale
 
 plt.ion()   # interactive mode
@@ -317,6 +320,9 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         model_ft = models.mnasnet0_5(pretrained=use_pretrained)
         num_ftrs = model_ft.classifier[1].in_features
         model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+    elif model_name == "inceptionv4":
+        model_ft = inceptionv4(num_classes=num_classes, pretrained='imagenet')
         input_size = 224
     else:
         print("Invalid model name, exiting...")
