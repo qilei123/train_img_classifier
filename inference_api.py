@@ -258,7 +258,7 @@ class classifier:
 
         outputs = self.model(inputs)
         _, preds = torch.max(outputs, 1)
-        print(preds)
+        #print(preds)
         softmax_res = self.softmax(outputs.data.cpu().numpy()[0])
         probilities = []
         for probility in softmax_res:
