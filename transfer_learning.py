@@ -298,19 +298,6 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         model_ft.fc = nn.Linear(num_ftrs,num_classes)
         input_size = 299
 
-    elif model_name == "inceptionv4":
-        """ Inception v4
-        Be careful, expects (299,299) sized images and has auxiliary output
-        """
-        model_ft = models.inceptionv4(pretrained=use_pretrained)
-        # Handle the auxilary net
-        num_ftrs = model_ft.AuxLogits.fc.in_features
-        model_ft.AuxLogits.fc = nn.Linear(num_ftrs, num_classes)
-        # Handle the primary net
-        num_ftrs = model_ft.fc.in_features
-        model_ft.fc = nn.Linear(num_ftrs,num_classes)
-        input_size=299
-
     elif model_name == "mobilenetv2":
         model_ft = models.mobilenet_v2(pretrained=use_pretrained)
         num_ftrs = model_ft.classifier[1].in_features
@@ -323,7 +310,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         input_size = 224
     elif model_name == "inceptionv4":
         model_ft = inceptionv4(num_classes=num_classes, pretrained='imagenet')
-        input_size = 224
+        input_size = 299
     else:
         print("Invalid model name, exiting...")
         exit()
