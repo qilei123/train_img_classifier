@@ -31,16 +31,25 @@ def micros(t1, t2):
 
 import threading
 class classifier:
-    def __init__(self,input_size_=1000,mean_=[0.485, 0.456, 0.406],std_=[0.229, 0.224, 0.225],class_num_=2,model_name = 'resnet101_wide',device_id=0):
+    def __init__(self,input_size_=1000,mean_=[0.485, 0.456, 0.406],std_=[0.229, 0.224, 0.225],class_num_=2,
+                model_name = 'resnet101_wide',device_id=0,with_gray=False):
         self.input_size = input_size_
         self.mean = mean_
         self.std = std_
-        self.test_transform = transforms.Compose([
-                transforms.Resize((self.input_size,self.input_size)),
-                #transforms.CenterCrop(self.input_size),
-                transforms.ToTensor(),
-                transforms.Normalize(self.mean, self.std)
-            ])
+        if with_gray:
+            self.test_transform = transforms.Compose([
+                    transforms.Resize((self.input_size,self.input_size)),
+                    transforms.Grayscale(3),
+                    transforms.ToTensor(),
+                    transforms.Normalize(self.mean, self.std)
+                ])
+        else:
+            self.test_transform = transforms.Compose([
+                    transforms.Resize((self.input_size,self.input_size)),
+                    #transforms.CenterCrop(self.input_size),
+                    transforms.ToTensor(),
+                    transforms.Normalize(self.mean, self.std)
+                ])
         self.class_num = class_num_
         self.device = torch.device("cuda:"+str(device_id))
         if model_name == "alexnet":
