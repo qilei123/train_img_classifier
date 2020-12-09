@@ -678,7 +678,7 @@ if __name__ == "__main__":
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
     videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
-    '''
+    
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
     videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
@@ -686,7 +686,7 @@ if __name__ == "__main__":
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
     videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
-    '''
+    
     '''
     try:
         videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
