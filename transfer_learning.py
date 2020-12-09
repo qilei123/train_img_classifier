@@ -613,7 +613,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=step_size, gamma=
 #
 
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=epoch,is_inception=("inception" in model_name))
+                       num_epochs=epoch,is_inception=("inception3" in model_name))
 
 ######################################################################
 #
