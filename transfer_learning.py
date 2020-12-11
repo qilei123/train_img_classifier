@@ -453,7 +453,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25,is_incepti
             best_acc = 0.0
     else:
         best_acc = 0.0
-    best_acc = 0.0
+    #best_acc = 0.0
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
