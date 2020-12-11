@@ -71,7 +71,7 @@ parser.add_argument('--datadir', '-d', help='set the training dataset', default=
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', default=False)
 parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', default=False)
-parser.add_argument('--withoutflip', '-wf', help='without flip', default=False)
+parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
 args = parser.parse_args()
 
 
@@ -367,7 +367,7 @@ if with_grayscale:
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
     }
-elif without_flip:
+elif args.without_flip:
     data_transforms = {
         'train': transforms.Compose([
             transforms.Resize((input_size,input_size)),
