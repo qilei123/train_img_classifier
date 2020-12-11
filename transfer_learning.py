@@ -321,11 +321,11 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
 
 
 model_ft,input_size = initialize_model(model_name,category_number)
-'''
+
 if os.path.exists(outputdir+'/latest.model'):
     checkpoint = torch.load(outputdir+'/latest.model')
     model_ft.load_state_dict(checkpoint)    
-'''
+
 ######################################################################
 # Load Data
 # ---------
@@ -352,10 +352,8 @@ if os.path.exists(outputdir+'/latest.model'):
 if with_grayscale:
     data_transforms = {
         'train': transforms.Compose([
-            #transforms.RandomResizedCrop(input_size),
             transforms.Resize((input_size,input_size)),
             transforms.Grayscale(3),
-            #transforms.CenterCrop(input_size),
             transforms.RandomHorizontalFlip(),
             transforms.RandomVerticalFlip(),
             transforms.ToTensor(),
@@ -364,7 +362,6 @@ if with_grayscale:
         'val': transforms.Compose([
             transforms.Resize((input_size,input_size)),
             transforms.Grayscale(3),
-            #transforms.CenterCrop(input_size),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
