@@ -49,7 +49,7 @@ import copy
 
 import inceptionv4
 from inceptionv4 import *
-
+from FocalLoss import FocalLoss
 from torchvision.transforms.transforms import Grayscale
 
 plt.ion()   # interactive mode
@@ -70,6 +70,7 @@ parser.add_argument('--gamma', '-a', help='set the learning gamma', default=0.5)
 parser.add_argument('--datadir', '-d', help='set the training dataset', default="/data1/qilei_chen/DATA/gastro/binary")
 parser.add_argument('--outputdir', '-o', help='set the model output dir', default="/data1/qilei_chen/DATA/gastro/binary/test1")
 parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', default=False)
+parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', default=False)
 
 args = parser.parse_args()
 
@@ -590,7 +591,10 @@ model_ft.classifier = nn.Linear(num_ftrs, 2)
 
 model_ft = model_ft.to(device)
 
-criterion = nn.CrossEntropyLoss()
+if args.focalloss:
+    criterion = FocalLoss(class_num = category_number,device=device)
+else:
+    criterion = nn.CrossEntropyLoss()
 
 # Observe that all parameters are being optimized
 if not adam:
