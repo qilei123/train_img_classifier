@@ -27,9 +27,10 @@ projects = {"binary/test1":[0,1],"multilabel5":[0,1,2,3,4]}
 projects = {"binary/test1":[0,1]}
 projects = {"multilabel3/test1":[0,1,2]}
 model_names = ["vgg11","densenet121","densenet161","inception3","mobilenetv2"]
-model_names = ["densenet121"]
+model_names = ["vgg11","densenet121"]
 for key in projects:
     for model_name in model_names:
+        print(model_name)
         for label in projects[key]:
             records_dir = os.path.join("/data1/qilei_chen/DATA/gastro",key,model_name,"best.model_"+str(label)+".txt")
             show_records(records_dir)
