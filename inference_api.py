@@ -557,10 +557,10 @@ for model_name in model_names:
 model_names = ["vgg11_bn","densenet121","densenet161","mobilenetv2"]
 #model_names = ['mobilenetv2']
 labels = [0,1,2,3,4]
-img_dir = "/data1/qilei_chen/DATA/gastro/multilabel3/val/"
+img_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/val/"
 class_num = 5
 for model_name in model_names:
-    model_dir = "/data1/qilei_chen/DATA/gastro/multilabel3/best_test/"+model_name+"/best.model"
+    model_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/best_test/"+model_name+"/best.model"
     for label in labels:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 
