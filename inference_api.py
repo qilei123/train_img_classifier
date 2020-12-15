@@ -489,16 +489,16 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     
     model.ini_model(model_dir)
 
-    #records = open(model_dir+"_"+str(label)+".txt",'w')
+    records = open(model_dir+"_"+str(label)+".txt",'w')
 
     img_files = glob.glob(os.path.join(img_dir,str(label),"*.jpg"))
     
     for img_file in img_files:
         prelabel = model.predict1(img_file)
-        print(img_file)
-        print(prelabel)
+        #print(img_file)
+        #print(prelabel)
         img_name = os.path.basename(img_file)
-        #records.write(img_name+" "+str(prelabel)+"\n")
+        records.write(img_name+" "+str(prelabel)+"\n")
 '''        
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 model_name = "vgg11"
