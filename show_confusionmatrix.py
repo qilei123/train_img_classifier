@@ -27,7 +27,7 @@ projects = {"binary/test1":[0,1],"multilabel5":[0,1,2,3,4]}
 projects = {"binary/test1":[0,1]}
 projects = {"multilabel5/best_test":[0,1,2,3,4]}
 model_names = ["vgg11","densenet121","densenet161","inception3","mobilenetv2"]
-model_names = ["vgg11","densenet121","densenet161","mobilenetv2"]
+model_names = ["vgg11_bn","densenet121","densenet161","mobilenetv2"]
 for key in projects:
     for model_name in model_names:
         print(model_name)
