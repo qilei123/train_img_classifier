@@ -554,7 +554,7 @@ for model_name in model_names:
 '''
 
 
-model_names = ['vgg11','densenet121','densenet161','mobilenetv2']
+model_names = ['densenet121','densenet161','mobilenetv2']
 #model_names = ['mobilenetv2']
 labels = [0,1,2]
 img_dir = "/data1/qilei_chen/DATA/gastro/multilabel3/val/"
