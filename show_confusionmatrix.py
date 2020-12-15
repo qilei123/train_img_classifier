@@ -25,7 +25,7 @@ def show_records(records_dir):
 
 projects = {"binary/test1":[0,1],"multilabel5":[0,1,2,3,4]}
 projects = {"binary/test1":[0,1]}
-projects = {"multilabel3/test1":[0,1,2,3,4]}
+projects = {"multilabel3/test1":[0,1,2]}
 model_names = ["vgg11","densenet121","densenet161","inception3","mobilenetv2"]
 model_names = ["densenet121"]
 for key in projects:
