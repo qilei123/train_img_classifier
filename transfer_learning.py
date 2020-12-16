@@ -49,6 +49,8 @@ import copy
 
 import inceptionv4
 from inceptionv4 import *
+import scnet
+from scnet import *
 from FocalLoss import FocalLoss
 from torchvision.transforms.transforms import Grayscale
 
@@ -314,6 +316,18 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.last_linear.in_features
         model_ft.last_linear = nn.Linear(num_ftrs,num_classes)
         input_size = 299
+
+    elif model_name == "scnet50":
+        model_ft = scnet50(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fd = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
+
+    elif model_name == "scnet50_v1d":
+        model_ft = scnet50_v1d(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs,num_classes)
+        input_size = 224
     else:
         print("Invalid model name, exiting...")
         exit()
