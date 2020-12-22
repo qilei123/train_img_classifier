@@ -493,7 +493,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     records = open(model_dir+"_"+str(label)+".txt",'w')
 
     img_files = glob.glob(os.path.join(img_dir,str(label),"*.jpg"))
-    
+    print(os.path.join(img_dir,str(label),"*.jpg"))
     for img_file in img_files:
         prelabel,probs = model.predict1(img_file)
         #print(img_file)
