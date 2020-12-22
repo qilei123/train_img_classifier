@@ -263,9 +263,10 @@ class classifier:
         probilities = []
         for probility in softmax_res:
             probilities.append(probility)
+        #print(probilities)
         t2 = datetime.datetime.now()
         #print(micros(t1,t2)/1000)
-        return probilities.index(max(probilities))
+        return probilities.index(max(probilities)),probilities
     def predict1(self,img_dir):
         img = cv2.imread(img_dir)
         return self.predict(img)
@@ -494,11 +495,11 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     img_files = glob.glob(os.path.join(img_dir,str(label),"*.jpg"))
     
     for img_file in img_files:
-        prelabel = model.predict1(img_file)
+        prelabel,probs = model.predict1(img_file)
         #print(img_file)
         #print(prelabel)
         img_name = os.path.basename(img_file)
-        records.write(img_name+" "+str(prelabel)+"\n")
+        records.write(img_name+" "+str(prelabel)+" "+str(probs)+"\n")
 '''        
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 model_name = "vgg11"
@@ -554,15 +555,21 @@ for model_name in model_names:
 '''
 
 
-model_names = ["vgg11_bn","densenet121","densenet161","mobilenetv2"]
+model_names = ["vgg11","densenet121","densenet161","mobilenetv2"]
 #model_names = ['mobilenetv2']
-labels = [0,1,2,3,4]
-img_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/val/"
-class_num = 5
-for model_name in model_names:
-    model_dir = "/data1/qilei_chen/DATA/gastro/multilabel5/best_test/"+model_name+"/best.model"
-    for label in labels:
-        test_4_gastro(img_dir,model_name,model_dir,label,class_num)
+
+datasets = {"binary":[0,1],
+            "3categories":[0,1,2],
+            "5categories":[0,1,2,3,4]}
+
+for key in datasets:
+    labels = datasets[key]
+    class_num = len(labels)
+    img_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/val/"
+    for model_name in model_names:
+        model_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/test1/"+model_name+"/best.model"
+        for label in labels:
+            test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 
 
 def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
@@ -639,8 +646,29 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
         
         video_count+=1
 import threading
+
+def test_db_quality(root,records_dir,model_dir):
+    records_file = open(os.path.join(root,records_dir))
+
+    model = classifier(input_size_=224,class_num_=3,model_name='squeezenet1_0')
+    model.ini_model(model_dir)
+
+    file_dir = records_file.readline()
+
+    quality_records = open(os.path.join(root,records_dir+".quality"),"w")
+
+    while file_dir:
+        if "ORG" in file_dir:
+            file_dir = file_dir[:-1]
+            quality_label = model.predict1(os.path.join(root,file_dir))
+            quality_records.write(file_dir+" "+str(quality_label)+"\n")
+        file_dir = records_file.readline()
+
 if __name__ == "__main__":
     '''
+    model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
+    test_db_quality("/media/cql/DATA0/DEVELOPMENT/xiangyaDB/","jpgs.txt",model_dir)
+    
     model_name="densenet161"
     model_dir = "/data2/qilei_chen/DATA/GI_4_NEW/grayscale/"+model_name+"/best.model"
     
