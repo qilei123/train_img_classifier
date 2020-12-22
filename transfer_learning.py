@@ -424,6 +424,8 @@ dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batc
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
+print(class_names)
+
 device = torch.device("cuda:"+str(gpu_id) if torch.cuda.is_available() else "cpu")
 
 ######################################################################
