@@ -558,9 +558,9 @@ for model_name in model_names:
 model_names = ["vgg11","densenet121","densenet161","mobilenetv2"]
 #model_names = ['mobilenetv2']
 
-datasets = {"binary":[0,1],
-            "3categories":[0,1,2],
-            "5categories":[0,1,2,3,4]}
+datasets = {"binary":['disease_free', 'diseased'],
+            "3categories":['disease_free', 'diseased_mild', 'diseased_severe'],
+            "5categories":['cancer', 'disease_free', 'early_cancer', 'erosive', 'ulcer']}
 
 for key in datasets:
     labels = datasets[key]
