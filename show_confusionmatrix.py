@@ -10,8 +10,8 @@ def show_records(records_dir):
     count = 0
     while line:
         count+=1
-        print(line)
-        label = int(line[-2])
+        label_index = line.index('[')-2
+        label = int(line[label_index])
 
         if label>=len(counts):
             counts.append(1)
