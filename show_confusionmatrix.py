@@ -10,7 +10,7 @@ def show_records(records_dir):
     count = 0
     while line:
         count+=1
-
+        print(line)
         label = int(line[-2])
 
         if label>=len(counts):
