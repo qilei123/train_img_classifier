@@ -306,6 +306,11 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.classifier[1].in_features
         model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
         input_size = 224
+    elif model_name == "mobilenetv2_500":
+        model_ft = models.mobilenet_v2(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[1].in_features
+        model_ft.classifier[1] = nn.Linear(num_ftrs,num_classes)
+        input_size = 500
     elif model_name == "mnasnet0_5":
         model_ft = models.mnasnet0_5(pretrained=use_pretrained)
         num_ftrs = model_ft.classifier[1].in_features
