@@ -231,7 +231,13 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.classifier.in_features
         model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
         input_size = 224
-
+    elif model_name == "densenet121_500":
+        """ Densenet
+        """
+        model_ft = models.densenet121(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier.in_features
+        model_ft.classifier = nn.Linear(num_ftrs, num_classes) 
+        input_size = 500
     elif model_name == "densenet161":
         """ Densenet
         """
