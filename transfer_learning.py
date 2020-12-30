@@ -154,7 +154,12 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.classifier[6].in_features
         model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
         input_size = 224
-
+    elif model_name == "vgg11_500":
+    
+        model_ft = models.vgg11(pretrained=use_pretrained)
+        num_ftrs = model_ft.classifier[6].in_features
+        model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
+        input_size = 500
     elif model_name == "vgg13":
 
         model_ft = models.vgg13(pretrained=use_pretrained)
