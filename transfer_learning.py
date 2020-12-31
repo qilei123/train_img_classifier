@@ -115,7 +115,11 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.fc.in_features
         model_ft.fc = nn.Linear(num_ftrs, num_classes)
         input_size = 224
-
+    elif model_name == "resnet50_500":
+        model_ft = models.resnet50(pretrained=use_pretrained)
+        num_ftrs = model_ft.fc.in_features
+        model_ft.fc = nn.Linear(num_ftrs, num_classes)
+        input_size = 500
     elif model_name == "resnet101":
         model_ft = models.resnet101(pretrained=use_pretrained)
         num_ftrs = model_ft.fc.in_features
