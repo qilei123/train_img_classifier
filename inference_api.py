@@ -555,7 +555,7 @@ for model_name in model_names:
 '''
 
 
-model_names = ["vgg11","densenet121","densenet161","mobilenetv2"]
+model_names = ["vgg11_500","densenet121_500","densenet161_500","mobilenetv2_500","resnet50_500"]
 #model_names = ['mobilenetv2']
 
 datasets = {"binary":['disease_free', 'diseased'],
@@ -567,7 +567,7 @@ for key in datasets:
     class_num = len(labels)
     img_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/val/"
     for model_name in model_names:
-        model_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/test1/"+model_name+"/best.model"
+        model_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/test2/"+model_name+"/best.model"
         for label in labels:
             test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 
