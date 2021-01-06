@@ -248,15 +248,16 @@ class classifier:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         #image = Image.open(img_dir).convert('RGB')
         image = Image.fromarray(img)
-        t1 = datetime.datetime.now()
+        
         image = self.test_transform(image)
         inputs = image
         inputs = Variable(inputs)
         
         inputs = inputs.to(self.device)
         inputs = inputs.view(1, inputs.size(0), inputs.size(1), inputs.size(2)) # add batch dim in the front
-
+        t1 = datetime.datetime.now()
         outputs = self.model(inputs)
+        t2 = datetime.datetime.now()
         _, preds = torch.max(outputs, 1)
         #print(preds)
         softmax_res = self.softmax(outputs.data.cpu().numpy()[0])
@@ -264,7 +265,7 @@ class classifier:
         for probility in softmax_res:
             probilities.append(probility)
         #print(probilities)
-        t2 = datetime.datetime.now()
+        
         print(micros(t1,t2)/1000)
         return probilities.index(max(probilities)),probilities
     def predict1(self,img_dir):
