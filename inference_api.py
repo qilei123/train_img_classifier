@@ -569,6 +569,8 @@ for key in datasets:
     for model_name in model_names:
         model_dir = "/data1/qilei_chen/DATA/gastro_v2/"+key+"/test2/"+model_name+"/best.model"
         for label in labels:
+            print(key)
+            print(model_name)
             test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 
 
