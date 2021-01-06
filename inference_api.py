@@ -574,7 +574,7 @@ for key in datasets:
         for label in labels:
             print(key)
             print(model_name)
-            input_size = 224
+            input_size = 500
             print(input_size)
             test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size)
 
