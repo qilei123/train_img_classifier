@@ -487,7 +487,9 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     if "inception" in model_name:
         model = classifier(299,model_name=model_name,class_num_=class_num)
     else:
-        model = classifier(500,model_name=model_name[:-4],class_num_=class_num)
+        input_size = 500
+        print(input_size)
+        model = classifier(input_size,model_name=model_name[:-4],class_num_=class_num)
     
     model.ini_model(model_dir)
 
@@ -556,7 +558,7 @@ for model_name in model_names:
 '''
 
 
-model_names = ["densenet161_500","mobilenetv2_500","resnet50_500","vgg11_500","densenet121_500",]
+model_names = ["mobilenetv2_500","resnet50_500","vgg11_500","densenet121_500","densenet161_500",]
 #model_names = ['mobilenetv2']
 
 datasets = {"binary":['disease_free', 'diseased'],
