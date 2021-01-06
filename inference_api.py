@@ -556,7 +556,7 @@ for model_name in model_names:
 '''
 
 
-model_names = ["resnet50_500","vgg11_500","densenet121_500","densenet161_500","mobilenetv2_500",]
+model_names = ["vgg11_500","densenet121_500","densenet161_500","mobilenetv2_500","resnet50_500",]
 #model_names = ['mobilenetv2']
 
 datasets = {"binary":['disease_free', 'diseased'],
