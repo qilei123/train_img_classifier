@@ -487,7 +487,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     if "inception" in model_name:
         model = classifier(299,model_name=model_name,class_num_=class_num)
     else:
-        model = classifier(500,model_name=model_name[:-4],class_num_=class_num)
+        model = classifier(224,model_name=model_name[:-4],class_num_=class_num)
     
     model.ini_model(model_dir)
 
