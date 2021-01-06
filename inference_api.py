@@ -265,7 +265,7 @@ class classifier:
             probilities.append(probility)
         #print(probilities)
         t2 = datetime.datetime.now()
-        #print(micros(t1,t2)/1000)
+        print(micros(t1,t2)/1000)
         return probilities.index(max(probilities)),probilities
     def predict1(self,img_dir):
         img = cv2.imread(img_dir)
@@ -490,7 +490,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
     
     model.ini_model(model_dir)
 
-    records = open(model_dir+"_"+str(label)+".txt",'w')
+    #records = open(model_dir+"_"+str(label)+".txt",'w')
 
     img_files = glob.glob(os.path.join(img_dir,str(label),"*.jpg"))
     print(os.path.join(img_dir,str(label),"*.jpg"))
@@ -499,7 +499,7 @@ def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
         #print(img_file)
         #print(prelabel)
         img_name = os.path.basename(img_file)
-        records.write(img_name+" "+str(prelabel)+" "+str(probs)+"\n")
+        #records.write(img_name+" "+str(prelabel)+" "+str(probs)+"\n")
 '''        
 img_dir = "/data1/qilei_chen/DATA/gastro/binary/val/"
 model_name = "vgg11"
