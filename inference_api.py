@@ -483,12 +483,12 @@ for test_file in test_files:
         print(os.path.basename(test_file))
         print(model.predict1(test_file))
 '''
-def test_4_gastro(img_dir,model_name,model_dir,label,class_num):
+def test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size):
     if "inception" in model_name:
         model = classifier(299,model_name=model_name,class_num_=class_num)
     else:
-        input_size = 500
-        print(input_size)
+        #input_size = input_size
+        #print(input_size)
         model = classifier(input_size,model_name=model_name[:-4],class_num_=class_num)
     
     model.ini_model(model_dir)
@@ -574,7 +574,9 @@ for key in datasets:
         for label in labels:
             print(key)
             print(model_name)
-            test_4_gastro(img_dir,model_name,model_dir,label,class_num)
+            input_size = 224
+            print(input_size)
+            test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size)
 
 
 def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
