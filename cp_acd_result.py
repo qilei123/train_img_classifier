@@ -27,5 +27,5 @@ def cp_acd_result(result_records_dir,img_folder_dir,save_dir):
 if __name__ == "__main__":
     result_records_dir = "/data1/qilei_chen/DATA/gastro_v2/5categories/test2/mobilenetv2_500/"
     img_folder_dir = "/data1/qilei_chen/DATA/gastro_v2/5categories/val/"
-    save_dir = "/data1/qilei_chen/DATA/gastro_v2/5categories/test2/mobilenetv2_500/"
+    save_dir = "/data1/qilei_chen/DATA/gastro_v2/5categories/test2/mobilenetv2_500/val_result/"
     cp_acd_result(result_records_dir,img_folder_dir,save_dir)
