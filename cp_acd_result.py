@@ -6,15 +6,15 @@ def cp_acd_result(result_records_dir,img_folder_dir,save_dir):
     labels = ['cancer', 'disease_free', 'early_cancer', 'erosive', 'ulcer']
     for record_file in record_files:
         record_file_name = os.path.basename(record_file)
-        label = record_file_name[10:-4]
+        label = record_file_name[11:-4]
         print(label)
         records = open(record_file)
         record = records.readline()
         while record:
             split_record = record.split(" ")
-            file_name = split_record[0]
+            img_file_name = split_record[0]
             label_id = split_record[1]
-
+            
             record = records.readline()
     pass
 
