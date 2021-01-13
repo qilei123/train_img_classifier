@@ -15,6 +15,14 @@ def cp_acd_result(result_records_dir,img_folder_dir,save_dir):
             label_id = split_record[1]
             print(img_file_name)
             print(label_id)
+            src_img_dir = os.path.join(img_folder_dir,label,img_file_name)
+            if os.path.exists(src_img_dir):
+                pre_label = labels[int(label_id)]
+                dst_dir = os.path.join(save_dir,label,pre_label)
+                if not os.path.exists(dst_dir):
+                    os.makedirs(dst_dir)
+                command = "cp "+src_img_dir+" "+dst_dir
+                os.system(command)
             record = records.readline()
     pass
 
