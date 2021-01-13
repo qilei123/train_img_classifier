@@ -13,8 +13,6 @@ def cp_acd_result(result_records_dir,img_folder_dir,save_dir):
             split_record = record.split(" ")
             img_file_name = split_record[0]
             label_id = split_record[1]
-            print(img_file_name)
-            print(label_id)
             src_img_dir = os.path.join(img_folder_dir,label,img_file_name)
             if os.path.exists(src_img_dir):
                 pre_label = labels[int(label_id)]
