@@ -163,6 +163,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         in_num_ftrs = model_ft.classifier[0].in_features
         out_num_ftrs = model_ft.classifier[0].out_features
         print(in_num_ftrs)
+        print(out_num_ftrs)
         model_ft.classifier[0] = nn.Linear(in_num_ftrs,out_num_ftrs/supress_num)
         
         in_num_ftrs = model_ft.classifier[3].in_features
