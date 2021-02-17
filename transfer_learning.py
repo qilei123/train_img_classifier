@@ -74,8 +74,9 @@ parser.add_argument('--outputdir', '-o', help='set the model output dir', defaul
 parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', default=False)
 parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', default=False)
 parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
-args = parser.parse_args()
+parser.add_argument('--supress_num', '-sn', help='supress number', default=2)
 
+args = parser.parse_args()
 
 model_name = args.model
 gpu_id = args.gpu
@@ -89,6 +90,7 @@ gamma=float(args.gamma)
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
 with_grayscale = args.grayscale
+supress_num = args.supress_num
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -156,8 +158,8 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.classifier[6].in_features
         model_ft.classifier[6] = nn.Linear(num_ftrs,num_classes)
         input_size = 224
-    elif model_name == "vgg11_2048":
-        supress_num = 2
+    elif model_name == "vgg11_supress":
+        
         model_ft = models.vgg11(pretrained=use_pretrained)
 
         in_num_ftrs = model_ft.classifier[0].in_features
