@@ -168,10 +168,10 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         
         in_num_ftrs = model_ft.classifier[3].in_features
         out_num_ftrs = model_ft.classifier[3].out_features        
-        model_ft.classifier[3] = nn.Linear(in_num_ftrs/supress_num,out_num_ftrs/supress_num)
+        model_ft.classifier[3] = nn.Linear(int(in_num_ftrs/supress_num),int(out_num_ftrs/supress_num))
         
         num_ftrs = model_ft.classifier[6].in_features
-        model_ft.classifier[6] = nn.Linear(num_ftrs/supress_num,num_classes)
+        model_ft.classifier[6] = nn.Linear(int(num_ftrs/supress_num),num_classes)
         input_size = 224
     elif model_name == "vgg11_500":
     
