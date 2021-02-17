@@ -90,7 +90,7 @@ gamma=float(args.gamma)
 data_dir = args.datadir
 outputdir = os.path.join(args.outputdir,model_name)
 with_grayscale = args.grayscale
-supress_num = args.supress_num
+supress_num = int(args.supress_num)
 
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
