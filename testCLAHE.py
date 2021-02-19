@@ -17,6 +17,17 @@ cl1 = clahe.apply(img)
 cv.imwrite('clahe_2.jpg',cl1)
 
 
+img = cv2.imread(test_img_dir)
+
+img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+
+# equalize the histogram of the Y channel
+img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+
+# convert the YUV image back to RGB format
+img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+cv.imwrite('equalhist_bgr.jpg',img_output)
+
 bgr = cv2.imread(test_img_dir)
 
 lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)
