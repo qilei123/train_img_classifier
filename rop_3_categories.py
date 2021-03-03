@@ -12,12 +12,12 @@ def create_dataset_with_records(records_dir,images_dir,dataset_dir):
         img_dir = os.path.join(images_dir,line_splits[0].replace("/home/zys/data/C3R/Integrated/",""))
         
         dst_dir = os.path.join(dataset_dir,label_to_folder[int(line_splits[1])])
-        print(dst_dir)
+        #print(dst_dir)
         if not os.path.exists(dst_dir):
             os.makedirs(dst_dir)
-        print(img_dir)
+        #print(img_dir)
         command = "cp "+images_dir + " "+dst_dir
-
+        print(command)
         os.system(command)
 
         line = records.readline()
