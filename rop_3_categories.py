@@ -15,7 +15,7 @@ def create_dataset_with_records(records_dir,images_dir,dataset_dir):
         print(dst_dir)
         if not os.path.exists(dst_dir):
             os.makedirs(dst_dir)
-
+        print(img_dir)
         command = "cp "+images_dir + " "+dst_dir
 
         os.system(command)
