@@ -63,5 +63,5 @@ def main():
     for file_dir in file_dir_list:
         print(file_dir)
 
-if __name__=="main":
+if __name__ == "__main__":
     main()
