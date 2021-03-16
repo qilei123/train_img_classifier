@@ -38,7 +38,7 @@ def equalhist_bgr(img,save_dir=None):
 
 def clahe_bgr(img,save_dir=None):
     pass
-
+    bgr = img
     #bgr = cv2.imread(test_img_dir)
 
     lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)
