@@ -59,7 +59,7 @@ def clahe_bgr(img,save_dir=None):
     return bgr
 
 def main():
-    file_dir_list = glob.glob(os.path.join(dir,"*.jpg"))
+    file_dir_list = glob.glob(os.path.join("/data1/qilei_chen/DATA/erosive/images","*.jpg"))
     for file_dir in file_dir_list:
         print(file_dir)
 
