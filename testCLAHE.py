@@ -61,7 +61,6 @@ def clahe_bgr(img,save_dir=None):
 def main():
     file_dir_list = glob.glob(os.path.join("/data1/qilei_chen/DATA/erosive/images","*.jpg"))
     for file_dir in file_dir_list:
-        print(file_dir)
         img = cv2.imread(file_dir)
         equalhist_bgr(img,"/data1/qilei_chen/DATA/erosive/images_equalhist/")
         clahe_bgr(img,"/data1/qilei_chen/DATA/erosive/images_clahe/")
