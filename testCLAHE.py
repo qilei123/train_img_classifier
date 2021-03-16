@@ -33,7 +33,7 @@ def equalhist_bgr(img,save_dir=None):
     # convert the YUV image back to RGB format
     img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
     if save_dir is not None:
-        cv2.imwrite(img_output,save_dir)
+        cv2.imwrite(save_dir,img_output)
     return img_output
 
 def clahe_bgr(img,save_dir=None):
@@ -55,15 +55,15 @@ def clahe_bgr(img,save_dir=None):
 
     #cv.imwrite('/data1/qilei_chen/DATA/erosive/temp/clahe_bgr.jpg',bgr)
     if save_dir is not None:
-        cv2.imwrite(bgr,save_dir)
+        cv2.imwrite(save_dir,bgr)
     return bgr
 
 def main():
     file_dir_list = glob.glob(os.path.join("/data1/qilei_chen/DATA/erosive/images","*.jpg"))
     for file_dir in file_dir_list:
         img = cv2.imread(file_dir)
-        equalhist_bgr(img,"/data1/qilei_chen/DATA/erosive/images_equalhist/")
-        clahe_bgr(img,"/data1/qilei_chen/DATA/erosive/images_clahe/")
+        equalhist_bgr(img,"/data1/qilei_chen/DATA/erosive/images_equalhist/"+os.path.basename(file_dir))
+        clahe_bgr(img,"/data1/qilei_chen/DATA/erosive/images_clahe/"+os.path.basename(file_dir))
 
 if __name__ == "__main__":
     main()
