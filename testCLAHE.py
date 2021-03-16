@@ -1,8 +1,11 @@
 import numpy as np
 import cv2
 import cv2 as cv
+import os
 
 test_img_dir = "/data1/qilei_chen/DATA/erosive/images/0d8b52cc-2fbb-413e-b513-7037312175a1.jpg"
+
+os.system("cp "+test_img_dir+" /data1/qilei_chen/DATA/erosive/temp/")
 
 img = cv.imread(test_img_dir,0)
 equ = cv.equalizeHist(img)
