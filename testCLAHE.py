@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import cv2 as cv
 
-test_img_dir = "/data1/qilei_chen/DATA/ROP_DATASET/images/00c9da2807dfa3115e7fb96c57da460b.png"
+test_img_dir = "/data1/qilei_chen/DATA/erosive/images/0d8b52cc-2fbb-413e-b513-7037312175a1.jpg"
 
 img = cv.imread(test_img_dir,0)
 equ = cv.equalizeHist(img)
