@@ -557,7 +557,7 @@ for model_name in model_names:
         test_4_gastro(img_dir,model_name,model_dir,label,class_num)
 '''
 
-
+'''
 model_names = ["resnet50_500","vgg11_500","densenet121_500","densenet161_500","mobilenetv2_500",]
 #model_names = ['mobilenetv2']
 
@@ -577,12 +577,12 @@ for key in datasets:
             input_size = 500
             print(input_size)
             test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size)
-
+'''
 
 def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
     os.system("export OMP_NUM_THREADS=2")
     print("start ini model")
-    model = classifier(224,model_name=model_name,class_num_=4)
+    model = classifier(224,model_name=model_name,class_num_=3)
 
     #model1 = classifier(224,model_name=model_name,class_num_=4,device_id=1)
 
