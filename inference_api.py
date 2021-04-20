@@ -707,23 +707,23 @@ if __name__ == "__main__":
 
 
     
-
-    model_name="mobilenetv2"
-    model_dir = "/data2/qilei_chen/DATA/GI_4_NEW/grayscale/"+model_name+"/best.model"
+    '''
+    model_name="resnet50"
+    model_dir = "/data1/qilei_chen/DATA/EsophagusOthers/resnet50_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
-    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    videos_result_folder = os.path.join(videos_folder_dir,"EsophagusOthers_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
-    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    videos_result_folder = os.path.join(videos_folder_dir,"EsophagusOthers_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
-    videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
+    videos_result_folder = os.path.join(videos_folder_dir,"EsophagusOthers_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
     
-    
+    '''
     try:
         videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
         videos_result_folder = os.path.join(videos_folder_dir,"grayscale_"+model_name)
