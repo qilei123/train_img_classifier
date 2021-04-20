@@ -612,44 +612,44 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
         os.makedirs(videos_result_folder)
     video_count=0
     for video_file_dir in video_file_dir_list:
-        
-        if video_count>video_start:
-            print(video_file_dir)
-            count=1
+        if '_w' in video_file_dir:
+            if video_count>video_start:
+                print(video_file_dir)
+                count=1
 
-            video = cv2.VideoCapture(video_file_dir)
+                video = cv2.VideoCapture(video_file_dir)
 
-            success,frame = video.read()
-        
-            video_name = os.path.basename(video_file_dir)
-
-            records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix,".txt"))
-            records_file_header = open(records_file_dir,"w")
-
-            fps = video.get(cv2.CAP_PROP_FPS)
-            frame_size = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-            #show_result_video_dir = os.path.join(videos_result_folder,video_name)
-            #videoWriter = cv2.VideoWriter(show_result_video_dir,cv2.VideoWriter_fourcc("P", "I", "M", "1"),fps,frame_size)
-            #print(show_result_video_dir)
-            while success:
-                '''
-                frame_roi = frame[roi[1]:roi[3],roi[0]:roi[2]]
-                predict_label = model.predict(frame_roi)
-                '''
-                predict_label = model.predict(frame)
-                #predict_label1 = model1.predict(frame)
-                records_file_header.write(str(count)+" "+str(predict_label)+"\n")
-                #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame_roi)
-                #cv2.putText(frame,str(count)+":"+str(predict_label),(50,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),3,cv2.LINE_AA)
-                #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame)
-                #videoWriter.write(frame)
-                #print(predict_label)
                 success,frame = video.read()
-                count+=1
-                '''
-                if count%10000==0:
-                    print(count)
-                '''
+            
+                video_name = os.path.basename(video_file_dir)
+
+                records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix,".txt"))
+                records_file_header = open(records_file_dir,"w")
+
+                fps = video.get(cv2.CAP_PROP_FPS)
+                frame_size = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+                #show_result_video_dir = os.path.join(videos_result_folder,video_name)
+                #videoWriter = cv2.VideoWriter(show_result_video_dir,cv2.VideoWriter_fourcc("P", "I", "M", "1"),fps,frame_size)
+                #print(show_result_video_dir)
+                while success:
+                    '''
+                    frame_roi = frame[roi[1]:roi[3],roi[0]:roi[2]]
+                    predict_label = model.predict(frame_roi)
+                    '''
+                    predict_label = model.predict(frame)
+                    #predict_label1 = model1.predict(frame)
+                    records_file_header.write(str(count)+" "+str(predict_label)+"\n")
+                    #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame_roi)
+                    #cv2.putText(frame,str(count)+":"+str(predict_label),(50,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),3,cv2.LINE_AA)
+                    #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame)
+                    #videoWriter.write(frame)
+                    #print(predict_label)
+                    success,frame = video.read()
+                    count+=1
+                    '''
+                    if count%10000==0:
+                        print(count)
+                    '''
         
         video_count+=1
 import threading
