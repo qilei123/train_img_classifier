@@ -266,7 +266,7 @@ class classifier:
             probilities.append(probility)
         #print(probilities)
         
-        print(micros(t1,t2)/1000)
+        #print(micros(t1,t2)/1000)
         return probilities.index(max(probilities)),probilities
     def predict1(self,img_dir):
         img = cv2.imread(img_dir)
