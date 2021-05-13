@@ -582,7 +582,7 @@ for key in datasets:
 def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
     os.system("export OMP_NUM_THREADS=2")
     print("start ini model")
-    model = classifier(224,model_name=model_name,class_num_=3)
+    model = classifier(224,model_name=model_name,class_num_=5)
 
     #model1 = classifier(224,model_name=model_name,class_num_=4,device_id=1)
 
