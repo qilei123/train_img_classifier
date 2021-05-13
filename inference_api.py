@@ -671,6 +671,30 @@ def test_db_quality(root,records_dir,model_dir):
             quality_records.write(file_dir+" "+str(quality_label)+"\n")
         file_dir = records_file.readline()
 
+def show_confusion_matrix(model,folder_dir,label_list):
+    
+
+    for label in label_list:
+        record_file = open(os.path.join(folder_dir,str(label)+".txt"),'w')
+        img_list = glob.glob(os.path.join(folder_dir,str(label),'*.jpg'))
+        count = zeros(len(label_list))
+        for img_dir in img_list:
+            image = cv2.imread(img_dir)
+            predict_label = model.predict(image)
+            img_name = os.path.basename(img_dir)
+            record_file.write(img_name+" "+str(predict_label))
+            count[int(predict_label[1])]+=1
+
+        print(count)
+
+def create_confusion_matrix():
+    model_name="mobilenetv2"
+    model_dir = "/data2/qilei_chen/DATA/5class_scene/work_dirs/mobilenetv2_2/best.model"
+    model = classifier(224,model_name=model_name,class_num_=5)
+    model.ini_model(model_dir)
+    show_confusion_matrix(model,"/data2/qilei_chen/DATA/5class_scene/val",[0,1,2,3,4])
+
+
 if __name__ == "__main__":
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
