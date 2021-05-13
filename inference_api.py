@@ -732,6 +732,7 @@ if __name__ == "__main__":
 
     
     '''
+    '''
     model_name="mobilenetv2"
     model_dir = "/data2/qilei_chen/DATA/5class_scene/work_dirs/mobilenetv2_2/best.model"
     
@@ -746,7 +747,7 @@ if __name__ == "__main__":
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
     videos_result_folder = os.path.join(videos_folder_dir,"5class_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
-    
+    '''
     '''
     try:
         videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
@@ -761,5 +762,6 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
+    create_confusion_matrix()
     pass
 
