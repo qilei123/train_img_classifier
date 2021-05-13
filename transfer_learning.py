@@ -75,6 +75,7 @@ parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', def
 parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', default=False)
 parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
 parser.add_argument('--supress_num', '-sn', help='supress number', default=2)
+parser.add_argument('--resume', '-r', help='resume from latest', default=True)
 
 args = parser.parse_args()
 
@@ -92,6 +93,7 @@ outputdir = os.path.join(args.outputdir,model_name)
 with_grayscale = args.grayscale
 supress_num = int(args.supress_num)
 outputdir+=('_'+str(supress_num))
+resume = args.resume
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
     #   variables is model specific.
@@ -378,7 +380,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
 
 model_ft,input_size = initialize_model(model_name,category_number)
 
-if os.path.exists(outputdir+'/latest.model'):
+if resume and os.path.exists(outputdir+'/latest.model'):
     checkpoint = torch.load(outputdir+'/latest.model')
     model_ft.load_state_dict(checkpoint)    
 
