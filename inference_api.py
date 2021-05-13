@@ -677,7 +677,7 @@ def show_confusion_matrix(model,folder_dir,label_list):
     for label in label_list:
         record_file = open(os.path.join(folder_dir,str(label)+".txt"),'w')
         img_list = glob.glob(os.path.join(folder_dir,str(label),'*.jpg'))
-        count = zeros(len(label_list))
+        count = [0]*(len(label_list))
         for img_dir in img_list:
             image = cv2.imread(img_dir)
             predict_label = model.predict(image)
