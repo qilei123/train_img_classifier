@@ -736,7 +736,7 @@ if __name__ == "__main__":
     '''
     
     model_name="mobilenetv2"
-    model_dir = "/data2/qilei_chen/DATA/5class_scene_alex_/work_dir/mobilenetv2_2/best.model"
+    model_dir = "/data2/qilei_chen/DATA/5class_scene_alex/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
     videos_result_folder = os.path.join(videos_folder_dir,"5class_alex_"+model_name)
