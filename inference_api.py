@@ -612,7 +612,7 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
         os.makedirs(videos_result_folder)
     video_count=0
     for video_file_dir in video_file_dir_list:
-        if '_w' in video_file_dir:
+        if ('_w' in video_file_dir) or True:
             if video_count>video_start:
                 print(video_file_dir)
                 count=1
@@ -624,6 +624,10 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
                 video_name = os.path.basename(video_file_dir)
 
                 records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix,".txt"))
+                
+                if os.path.exists(records_file_dir):
+                    continue
+
                 records_file_header = open(records_file_dir,"w")
 
                 fps = video.get(cv2.CAP_PROP_FPS)
