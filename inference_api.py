@@ -603,9 +603,9 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
     '''
     video_start = -1#15
 
-    video_suffix1 = ".avi"
+    #video_suffix1 = ".avi"
     
-    video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
+    #video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
 
     video_suffix = ".mp4"
     
