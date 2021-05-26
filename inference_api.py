@@ -694,10 +694,11 @@ def show_confusion_matrix(model,folder_dir,label_list):
 
 def create_confusion_matrix():
     model_name="mobilenetv2"
-    model_dir = "/data2/qilei_chen/DATA/5class_scene/work_dirs/mobilenetv2_2/best.model"
+    data_set = "5class_scene_new_in"
+    model_dir = "/data2/qilei_chen/DATA/"+data_set+"/work_dir/mobilenetv2_2/best.model"
     model = classifier(224,model_name=model_name,class_num_=5)
     model.ini_model(model_dir)
-    show_confusion_matrix(model,"/data2/qilei_chen/DATA/5class_scene/val",[0,1,2,3,4])
+    show_confusion_matrix(model,"/data2/qilei_chen/DATA/"+data_set+"/val",[0,1,2,3,4])
 
 
 if __name__ == "__main__":
@@ -734,7 +735,7 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
-    
+    '''
     model_name="mobilenetv2"
     model_dir = "/data2/qilei_chen/DATA/5class_scene_alex/work_dir/mobilenetv2_2/best.model"
     
@@ -749,7 +750,7 @@ if __name__ == "__main__":
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
     videos_result_folder = os.path.join(videos_folder_dir,"5class_alex_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
-    
+    '''
     '''
     try:
         videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed/"
@@ -764,6 +765,6 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
-    #create_confusion_matrix()
+    create_confusion_matrix()
     pass
 
