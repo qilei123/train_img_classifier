@@ -605,11 +605,11 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
 
     video_suffix1 = ".avi"
     
-    video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix1))
+    video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
 
-    video_suffix2 = ".mp4"
+    video_suffix = ".mp4"
     
-    video_file_dir_list += glob.glob(os.path.join(videos_folder,"*"+video_suffix2))
+    video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
     #print(video_file_dir_list)
     #return
     if not os.path.exists(videos_result_folder):
@@ -627,8 +627,7 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
             
                 video_name = os.path.basename(video_file_dir)
 
-                records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix1,".txt"))
-                records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix2,".txt"))
+                records_file_dir = os.path.join(videos_result_folder,video_name.replace(video_suffix,".txt"))
                 if os.path.exists(records_file_dir):
                     continue
 
