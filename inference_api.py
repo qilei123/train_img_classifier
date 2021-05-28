@@ -689,7 +689,7 @@ def show_confusion_matrix(model,folder_dir,label_list):
             image = cv2.imread(img_dir)
             predict_label = model.predict(image)
             img_name = os.path.basename(img_dir)
-            record_file.write(img_name+" "+str(predict_label))
+            record_file.write(img_name+" "+str(predict_label)+"\n")
             
             count[int(predict_label[0])]+=1
 
