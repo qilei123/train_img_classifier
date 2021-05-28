@@ -579,10 +579,10 @@ for key in datasets:
             test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size)
 '''
 
-def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder):
+def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder,class_num = 5):
     os.system("export OMP_NUM_THREADS=4")
     print("start ini model")
-    model = classifier(224,model_name=model_name,class_num_=5)
+    model = classifier(224,model_name=model_name,class_num_=class_num)
 
     #model1 = classifier(224,model_name=model_name,class_num_=4,device_id=1)
 
@@ -708,7 +708,7 @@ def create_confusion_matrix():
 def test_videos():
     model_name="mobilenetv2"
     dataset_name = "5class_alex_manual"
-    dataset_name = "5class_scene_combine_2_fine_2_3"
+    #dataset_name = "5class_scene_combine_2_fine_2_3"
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
