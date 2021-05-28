@@ -628,6 +628,7 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
                 video_name = os.path.basename(video_file_dir)
 
                 records_file_dir = os.path.join(videos_result_folder,video_name[:-4]+".txt")
+                print(records_file_dir)
                 if os.path.exists(records_file_dir):
                     continue
 
