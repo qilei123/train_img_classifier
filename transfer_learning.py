@@ -75,7 +75,7 @@ parser.add_argument('--grayscale', '-gr', help='transformer with grayscale', def
 parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', default=False)
 parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
 parser.add_argument('--supress_num', '-sn', help='supress number', default=2)
-parser.add_argument('--resume', '-r', help='resume from latest', default=True)
+parser.add_argument('--resume', '-r', help='resume from latest', default=False)
 
 args = parser.parse_args()
 
