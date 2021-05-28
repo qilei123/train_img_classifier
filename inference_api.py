@@ -707,7 +707,7 @@ def create_confusion_matrix():
 
 def test_videos():
     model_name="mobilenetv2"
-    dataset_name = "5class_alex_manual"
+    dataset_name = "5class_scene_alex_manual"
     #dataset_name = "5class_scene_combine_2_fine_2_3"
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
