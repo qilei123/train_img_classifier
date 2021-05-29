@@ -699,6 +699,7 @@ def show_confusion_matrix(model,folder_dir,label_list):
 def create_confusion_matrix():
     model_name="mobilenetv2"
     data_set = "5class_scene_combine_2_fine_2_3"
+    data_set = '5class_scene_combine_2_fine_2_3_fine_c_in'
     labels = [0,1,2,3,4]
     model_dir = "/data2/qilei_chen/DATA/"+data_set+"/work_dir/mobilenetv2_2/best.model"
     model = classifier(224,model_name=model_name,class_num_=len(labels))
