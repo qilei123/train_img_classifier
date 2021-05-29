@@ -719,7 +719,7 @@ def test_videos():
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
-    selected_videos = "*_c*"
+    selected_videos = "*_w*"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
 
