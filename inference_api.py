@@ -579,7 +579,7 @@ for key in datasets:
             test_4_gastro(img_dir,model_name,model_dir,label,class_num,input_size)
 '''
 
-def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder,class_num = 5):
+def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_result_folder,class_num = 5,selected_videos = "*_w*"):
     os.system("export OMP_NUM_THREADS=4")
     print("start ini model")
     model = classifier(224,model_name=model_name,class_num_=class_num)
@@ -609,7 +609,7 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
 
     #video_suffix = ".mp4"
     
-    video_file_dir_list = glob.glob(os.path.join(videos_folder,"videos","*_w*"))
+    video_file_dir_list = glob.glob(os.path.join(videos_folder,"videos",selected_videos))
     #print(video_file_dir_list)
     #return
     if not os.path.exists(videos_result_folder):
@@ -630,7 +630,12 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
                 records_file_dir = os.path.join(videos_result_folder,video_name[:-4]+".txt")
                 print(records_file_dir)
                 if os.path.exists(records_file_dir):
-                    continue
+                    records_file_header = open(records_file_dir)
+                    content = records_file_header.readline()
+                    if content=='':
+                        pass
+                    else:
+                        continue
 
                 records_file_header = open(records_file_dir,"w")
 
@@ -709,13 +714,14 @@ def create_confusion_matrix():
 def test_videos():
     model_name="mobilenetv2"
     dataset_name = "5class_scene_alex_manual"
-    dataset_name = "5class_scene_combine_2_fine_2_3"
+    #dataset_name = "5class_scene_combine_2_fine_2_3"
     #dataset_name = '5class_scene_combine_2_fine_2_3_fine_c_in'
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
+    selected_videos = "*_c*"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name)
-    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder)
+    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
 
 if __name__ == "__main__":
     '''
