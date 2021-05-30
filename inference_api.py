@@ -781,10 +781,10 @@ def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,vi
                     success,frame = video.read()
                     count+=1
                     
-                    if count==10:
-                        break
+                    #if count==10:
+                    #    break
                     
-        break
+        #break
         video_count+=1
 
 import threading
@@ -848,7 +848,7 @@ def test_videos():
     #process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
     process_4_situation_videos_gray_batch(videos_folder_dir,model_dir,
                                             model_name,videos_result_folder,
-                                            selected_videos=selected_videos)
+                                            selected_videos=selected_videos,batch_size=32)
 def test_batch():
     model_name="mobilenetv2"
     dataset_name = "5class_scene_alex_manual"
