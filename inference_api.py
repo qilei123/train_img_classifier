@@ -767,7 +767,7 @@ def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,vi
                         #predict_label1 = model1.predict(frame)
                         for frame_index,predict_label,predict_probs in zip(frame_indexes,predict_results[0],predict_results[1]):
 
-                            records_file_header.write(str(frame_index)+" #"+str(predict_label[0])+"# "+str(predict_probs)+"\n")
+                            records_file_header.write(str(frame_index)+" #"+str(predict_label[0][0])+"# "+str(predict_probs)+"\n")
                         img_batch = []
                         frame_indexes = []
                     else:
