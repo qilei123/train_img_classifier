@@ -268,6 +268,20 @@ class classifier:
         
         #print(micros(t1,t2)/1000)
         return probilities.index(max(probilities)),probilities
+    def predict_batch(self,img_batch):
+        batch = []
+        for img in img_batch:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            #image = Image.open(img_dir).convert('RGB')
+            image = Image.fromarray(img)
+            
+            image = self.test_transform(image)
+            batch.append(image)
+        inputs = Variable(batch)
+        inputs = inputs.to(self.device)
+        outputs = self.model(inputs)
+        print(outputs)
+
     def predict1(self,img_dir):
         img = cv2.imread(img_dir)
         return self.predict(img)
@@ -686,7 +700,6 @@ def test_db_quality(root,records_dir,model_dir):
 
 def show_confusion_matrix(model,folder_dir,label_list):
     
-
     for label in label_list:
         record_file = open(os.path.join(folder_dir,str(label)+".txt"),'w')
         img_list = glob.glob(os.path.join(folder_dir,str(label),'*.jpg'))
@@ -722,6 +735,20 @@ def test_videos():
     selected_videos = "*_w*"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name)
     process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
+
+def test_batch():
+    model_name="mobilenetv2"
+    dataset_name = "5class_scene_alex_manual"
+    dataset_name = "5class_scene_combine_2_fine_2_3"
+    dataset_name = '5class_scene_combine_2_fine_2_3_fine_c_in'
+    model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
+    labels = [0,1,2,3,4]
+    model = classifier(224,model_name=model_name,class_num_=len(labels))
+    model.ini_model(model_dir) 
+    image1 = cv2.imread("/data2/qilei_chen/DATA/5class_scene_alex_manual/20191011_1611_1632_c_14074.jpg")
+    image2 = cv2.imread("/data2/qilei_chen/DATA/5class_scene_alex_manual/20191011_1611_1632_c_3890.jpg")
+    img_batch = [image1,image2]
+    print(model.predict_batch(img_batch))       
 
 if __name__ == "__main__":
     '''
