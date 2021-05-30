@@ -274,10 +274,9 @@ class classifier:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             #image = Image.open(img_dir).convert('RGB')
             image = Image.fromarray(img)
-            
             image = self.test_transform(image)
             batch.append(image)
-        inputs = Variable(batch)
+        inputs = Variable(torch.stack(batch))
         inputs = inputs.to(self.device)
         outputs = self.model(inputs)
         print(outputs)
