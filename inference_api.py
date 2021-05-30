@@ -686,6 +686,108 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
                     '''
         
         video_count+=1
+
+
+def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,videos_result_folder,class_num = 5,selected_videos = "*_w*",batch_size=8):
+    os.system("export OMP_NUM_THREADS=4")
+    print("start ini model")
+    model = classifier(224,model_name=model_name,class_num_=class_num)
+
+    #model1 = classifier(224,model_name=model_name,class_num_=4,device_id=1)
+
+    #model_dir = '/data2/qilei_chen/DATA/GI_4_NEW_GRAY/finetune_4_new_oimg_'+model_name+'/best.model'
+
+    model.ini_model(model_dir)
+    print("finish ini model")
+    #model1.ini_model(model_dir)
+
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed2/"
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/weijingshi4/"
+    #videos_folder = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_changjing20/"
+    '''
+    big_roi = [441, 1, 1278, 720]
+    small_roi = [156, 40, 698, 527]
+
+    roi = big_roi
+    '''
+    video_start = -1#15
+
+    #video_suffix1 = ".avi"
+    
+    #video_file_dir_list = glob.glob(os.path.join(videos_folder,"*"+video_suffix))
+
+    #video_suffix = ".mp4"
+    
+    video_file_dir_list = glob.glob(os.path.join(videos_folder,"videos",selected_videos))
+    #print(video_file_dir_list)
+    #return
+    if not os.path.exists(videos_result_folder):
+        os.makedirs(videos_result_folder)
+    video_count=0
+    for video_file_dir in video_file_dir_list:
+        if ('_w' in video_file_dir) or True:
+            if video_count>video_start:
+                print(video_file_dir)
+                count=1
+
+                video = cv2.VideoCapture(video_file_dir)
+
+                success,frame = video.read()
+            
+                video_name = os.path.basename(video_file_dir)
+
+                records_file_dir = os.path.join(videos_result_folder,video_name[:-4]+".txt")
+                print(records_file_dir)
+                if os.path.exists(records_file_dir):
+                    records_file_header = open(records_file_dir)
+                    content = records_file_header.readline()
+                    if content=='':
+                        pass
+                    else:
+                        continue
+
+                records_file_header = open(records_file_dir,"w")
+
+                fps = video.get(cv2.CAP_PROP_FPS)
+                frame_size = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+                #show_result_video_dir = os.path.join(videos_result_folder,video_name)
+                #videoWriter = cv2.VideoWriter(show_result_video_dir,cv2.VideoWriter_fourcc("P", "I", "M", "1"),fps,frame_size)
+                #print(show_result_video_dir)
+                img_batch = []
+                frame_indexes = []
+                while success:
+                    '''
+                    frame_roi = frame[roi[1]:roi[3],roi[0]:roi[2]]
+                    predict_label = model.predict(frame_roi)
+                    '''
+                    if len(img_batch)==batch_size:
+
+                        #predict_label = model.predict(frame)
+                        predict_results = model.predict_batch(img_batch)
+                        #predict_label1 = model1.predict(frame)
+                        for frame_index,predict_result in zip(frame_indexes,predict_results):
+                            print(frame_index)
+                            print(predict_result)
+                        #records_file_header.write(str(count)+" "+str(predict_label)+"\n")
+                        img_batch = []
+                        frame_indexes = []
+                    else:
+                        img_batch.append(frame)
+                        frame_indexes.append(count)
+                    #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame_roi)
+                    #cv2.putText(frame,str(count)+":"+str(predict_label),(50,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),3,cv2.LINE_AA)
+                    #cv2.imwrite("/data2/qilei_chen/DATA/test.jpg",frame)
+                    #videoWriter.write(frame)
+                    #print(predict_label)
+                    success,frame = video.read()
+                    count+=1
+                    
+                    if count==10:
+                        break
+                    
+        break
+        video_count+=1
+
 import threading
 
 def test_db_quality(root,records_dir,model_dir):
@@ -739,10 +841,13 @@ def test_videos():
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
-    selected_videos = "*_w*"
-    videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name)
-    process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
-
+    #selected_videos = "*_w*"
+    selected_videos = "*"
+    videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name+"_batch")
+    #process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
+    process_4_situation_videos_gray_batch(videos_folder_dir,model_dir,
+                                            model_name,videos_result_folder,
+                                            selected_videos=selected_videos)
 def test_batch():
     model_name="mobilenetv2"
     dataset_name = "5class_scene_alex_manual"
