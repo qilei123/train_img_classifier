@@ -279,7 +279,14 @@ class classifier:
         inputs = Variable(torch.stack(batch))
         inputs = inputs.to(self.device)
         outputs = self.model(inputs)
-        print(outputs)
+        outputs_gpu = outputs.data.cpu().numpy()
+        labels = []
+        
+        for i in range(len(outputs_gpu)):
+            softmax_res = self.softmax(outputs_gpu[i])
+            labels.append(max(softmax_res))
+        return labels,outputs_gpu
+            
 
     def predict1(self,img_dir):
         img = cv2.imread(img_dir)
