@@ -281,10 +281,11 @@ class classifier:
         outputs = self.model(inputs)
         outputs_gpu = outputs.data.cpu().numpy()
         labels = []
-        
+        probs = []
         for i in range(len(outputs_gpu)):
             softmax_res = self.softmax(outputs_gpu[i])
-            labels.append(max(softmax_res))
+            probs.append(softmax_res)
+            labels.append(softmax_res.index(max(softmax_res)))
         return labels,outputs_gpu
             
 
