@@ -760,11 +760,13 @@ def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,vi
                     frame_roi = frame[roi[1]:roi[3],roi[0]:roi[2]]
                     predict_label = model.predict(frame_roi)
                     '''
-                    if len(img_batch)==batch_size:
+                    if len(img_batch)>=batch_size:
 
                         #predict_label = model.predict(frame)
                         predict_results = model.predict_batch(img_batch)
                         #predict_label1 = model1.predict(frame)
+                        print(frame_indexes)
+                        print(predict_results)
                         for frame_index,predict_result in zip(frame_indexes,predict_results):
                             print(frame_index)
                             print(predict_result)
