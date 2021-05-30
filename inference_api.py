@@ -285,7 +285,7 @@ class classifier:
         for i in range(len(outputs_gpu)):
             softmax_res = self.softmax(outputs_gpu[i])
             probs.append(softmax_res)
-            labels.append(softmax_res.index(max(softmax_res)))
+            labels.append(np.where(softmax_res==max(softmax_res)))
         return labels,outputs_gpu
             
 
