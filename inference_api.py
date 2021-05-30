@@ -286,7 +286,7 @@ class classifier:
             softmax_res = self.softmax(outputs_gpu[i])
             probs.append(softmax_res)
             labels.append(np.where(softmax_res==max(softmax_res)))
-        return labels,outputs_gpu
+        return labels,probs
             
 
     def predict1(self,img_dir):
