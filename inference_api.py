@@ -843,7 +843,7 @@ def test_videos():
     #selected_videos = "*_w*"
     selected_videos = "*"
     use_batch=''
-    use_batch = "_batch"
+    use_batch = "_batch_60"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name+use_batch)
     #process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
     process_4_situation_videos_gray_batch(videos_folder_dir,model_dir,
