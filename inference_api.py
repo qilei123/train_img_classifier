@@ -841,7 +841,7 @@ def test_videos():
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
     #selected_videos = "*_w*"
-    selected_videos = "*"
+    selected_videos = "*_w*"
     use_batch=''
     use_batch = "_batch_60"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name+use_batch)
