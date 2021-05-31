@@ -689,7 +689,7 @@ def process_4_situation_videos_gray(videos_folder,model_dir,model_name ,videos_r
 
 
 def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,videos_result_folder,class_num = 5,selected_videos = "*_w*",batch_size=8):
-    os.system("export OMP_NUM_THREADS=4")
+    #os.system("export OMP_NUM_THREADS=4")
     print("start ini model")
     model = classifier(224,model_name=model_name,class_num_=class_num)
 
