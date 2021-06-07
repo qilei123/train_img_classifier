@@ -839,13 +839,16 @@ def test_videos():
     dataset_name = "5class_scene_alex_manual"
     dataset_name = "5class_scene_combine_2_fine_2_3"
     dataset_name = '5class_scene_combine_2_fine_2_3_fine_c_in'
+    dataset_name = '5class_scene_combine_2_fine_2_3_fine_c_in_fine_out'
+    dataset_name = '5class_scene_combine_2_fine_2_3_fine_c_in_fine_out_combine_train_val'
     model_dir = "/data2/qilei_chen/DATA/"+dataset_name+"/work_dir/mobilenetv2_2/best.model"
     
     videos_folder_dir = "/data2/qilei_chen/jianjiwanzhengshipin2/preprocessed_all/"
     #selected_videos = "*_w*"
     selected_videos = "*_c*"
+    selected_videos = "*"
     use_batch=''
-    use_batch = "_batch_60"
+    use_batch = "_batch_66"
     videos_result_folder = os.path.join(videos_folder_dir,dataset_name+"_"+model_name+use_batch)
     #process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
     process_4_situation_videos_gray_batch(videos_folder_dir,model_dir,
@@ -929,8 +932,8 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
-    #test_videos()
-    create_confusion_matrix()
+    test_videos()
+    #create_confusion_matrix()
     #test_batch()
     pass
 
