@@ -853,7 +853,7 @@ def test_videos():
     #process_4_situation_videos_gray(videos_folder_dir,model_dir,model_name,videos_result_folder,selected_videos=selected_videos)
     process_4_situation_videos_gray_batch(videos_folder_dir,model_dir,
                                             model_name,videos_result_folder,
-                                            selected_videos=selected_videos,batch_size=256)
+                                            selected_videos=selected_videos,batch_size=126)
 def test_batch():
     model_name="mobilenetv2"
     dataset_name = "5class_scene_alex_manual"
