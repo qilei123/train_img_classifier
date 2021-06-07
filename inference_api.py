@@ -928,8 +928,8 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
-    test_videos()
-    #create_confusion_matrix()
+    #test_videos()
+    create_confusion_matrix()
     #test_batch()
     pass
 
