@@ -770,7 +770,7 @@ def process_4_situation_videos_gray_batch(videos_folder,model_dir,model_name ,vi
                             records_file_header.write(str(frame_index)+" #"+str(predict_label[0][0])+"# "+str(predict_probs)+"\n")
                         img_batch = []
                         frame_indexes = []
-                        print(count)
+                        #print(count)
                     else:
                         img_batch.append(frame)
                         frame_indexes.append(count)
