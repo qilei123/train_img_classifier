@@ -395,7 +395,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
     else:
         print("Invalid model name, exiting...")
         exit()
-    
+    print("----train:"+model_name+"----")
     return model_ft, input_size
 
 
