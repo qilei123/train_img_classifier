@@ -89,6 +89,7 @@ parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
 parser.add_argument('--supress_num', '-sn', help='supress number', default=2)
 parser.add_argument('--resume', '-r', help='resume from latest', default=False)
 parser.add_argument('--imbalancedSampler', '-is', help='use ImbalancedDatasetSampler', default=False)
+parser.add_argument('--RandomAffine', '-ra', help='use RandomAffine', default=False)
 args = parser.parse_args()
 
 model_name = args.model
@@ -107,6 +108,8 @@ supress_num = int(args.supress_num)
 outputdir+=('_'+str(supress_num))
 resume = args.resume
 use_imbalancedSampler = args.imbalancedSampler
+use_randomaffine = args.RandomAffine
+
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
     #   variables is model specific.
@@ -505,6 +508,25 @@ elif args.without_flip:
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
     }     
+elif use_randomaffine:
+    data_transforms = {
+        'train': transforms.Compose([
+            #transforms.RandomResizedCrop(input_size),
+            transforms.RandomAffine(45),
+            transforms.Resize((input_size,input_size)),
+            #transforms.CenterCrop(input_size),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+        'val': transforms.Compose([
+            transforms.Resize((input_size,input_size)),
+            #transforms.CenterCrop(input_size),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ]),
+    }    
 else:   
     data_transforms = {
         'train': transforms.Compose([
