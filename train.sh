@@ -1,0 +1,1 @@
+python transfer_learning.py -m ViT -d /data2/qilei_chen/DATA/gastro_position_clasification/ -o /data2/qilei_chen/DATA/gastro_position_clasification/work_dir -c 12 -b 32
