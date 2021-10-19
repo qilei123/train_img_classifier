@@ -770,7 +770,6 @@ num_ftrs = model_ft.classifier.in_features
 model_ft.classifier = nn.Linear(num_ftrs, 2) 
 '''
 
-
 model_ft = model_ft.to(device)
 
 if args.focalloss:
@@ -783,7 +782,6 @@ if not adam:
     optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
 else:
     gamma = 0.7
-
     optimizer_ft = optim.Adam(model_ft.parameters(), lr=learning_rate)
 
 # Decay LR by a factor of 0.1 every 7 epochs
