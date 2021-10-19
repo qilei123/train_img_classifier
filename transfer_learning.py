@@ -78,7 +78,7 @@ parser.add_argument('--focalloss', '-fl', help='loss function is focaloss', defa
 parser.add_argument('--without_flip', '-wf', help='without flip', default=False)
 parser.add_argument('--supress_num', '-sn', help='supress number', default=2)
 parser.add_argument('--resume', '-r', help='resume from latest', default=False)
-
+parser.add_argument('--imbalancedSampler', '-is', help='use ImbalancedDatasetSampler', default=False)
 args = parser.parse_args()
 
 model_name = args.model
@@ -96,6 +96,7 @@ with_grayscale = args.grayscale
 supress_num = int(args.supress_num)
 outputdir+=('_'+str(supress_num))
 resume = args.resume
+use_imbalancedSampler = args.imbalancedSampler
 def initialize_model(model_name, num_classes, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
     #   variables is model specific.
@@ -465,9 +466,9 @@ image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                   for x in ['train', 'val']}
 dataloaders = {}
 for x in ['train', 'val']:
-    if x=='train':
+    if x=='train' and use_imbalancedSampler:
         dataloaders[x] = torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size,
-                                             shuffle=False, num_workers=4,sampler = ImbalancedDatasetSampler(image_datasets[x]))
+                                            shuffle=False, num_workers=4,sampler = ImbalancedDatasetSampler(image_datasets[x]))
     else:
         dataloaders[x] = torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size,
                                              shuffle=True, num_workers=4)
