@@ -385,6 +385,7 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         model_ft.fc = nn.Linear(num_ftrs,num_classes)
         input_size = 224
     elif model_name == "ViT":
+        input_size = 256 #224->256
         efficient_transformer = Linformer(
             dim=128,
             seq_len=17,  # 7x7 patches + 1 cls-token --> 4x4 +1
@@ -394,12 +395,13 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         )
         model_ft = ViT(
             dim=128,
-            image_size=256, #224->256
+            image_size=input_size, 
             patch_size=64, #32->64
             num_classes=num_classes,
             transformer=efficient_transformer,
             channels=3,
         )    
+        
     elif model_name == "Nest":
         model_ft = NesT(
             image_size = 224,
