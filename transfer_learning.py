@@ -56,6 +56,8 @@ from torchvision.transforms.transforms import Grayscale
 
 from torchsampler import ImbalancedDatasetSampler
 
+from vit_pytorch.efficient import ViT
+from linformer import Linformer
 plt.ion()   # interactive mode
 
 
@@ -374,6 +376,22 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
         num_ftrs = model_ft.fc.in_features
         model_ft.fc = nn.Linear(num_ftrs,num_classes)
         input_size = 224
+    elif model_name == "ViT":
+        efficient_transformer = Linformer(
+            dim=128,
+            seq_len=49+1,  # 7x7 patches + 1 cls-token
+            depth=12,
+            heads=8,
+            k=64
+        )
+        model_ft = ViT(
+            dim=128,
+            image_size=224,
+            patch_size=32,
+            num_classes=num_classes,
+            transformer=efficient_transformer,
+            channels=3,
+        )        
     else:
         print("Invalid model name, exiting...")
         exit()
