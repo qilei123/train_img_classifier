@@ -56,8 +56,16 @@ from torchvision.transforms.transforms import Grayscale
 
 from torchsampler import ImbalancedDatasetSampler
 
-from vit_pytorch.efficient import ViT
 from linformer import Linformer
+
+from vit_pytorch.efficient import ViT
+from vit_pytorch.t2t import T2TViT
+from vit_pytorch.deepvit import DeepViT
+from vit_pytorch.cait import CaiT
+from vit_pytorch.cross_vit import CrossViT
+from vit_pytorch.nest import NesT
+from vit_pytorch.twins_svt import TwinsSVT
+
 plt.ion()   # interactive mode
 
 
@@ -391,7 +399,43 @@ def initialize_model(model_name, num_classes, use_pretrained=True):
             num_classes=num_classes,
             transformer=efficient_transformer,
             channels=3,
-        )        
+        )    
+    elif model_name == "Nest":
+        model_ft = NesT(
+            image_size = 224,
+            patch_size = 4,
+            dim = 96,
+            heads = 3,
+            num_hierarchies = 3,        # number of hierarchies
+            block_repeats = (8, 4, 1),  # the number of transformer blocks at each heirarchy, starting from the bottom
+            num_classes = num_classes
+        )  
+    elif model_name == "TwinsSVT":
+        model_ft = TwinsSVT(
+            num_classes = num_classes,       # number of output classes
+            s1_emb_dim = 64,          # stage 1 - patch embedding projected dimension
+            s1_patch_size = 4,        # stage 1 - patch size for patch embedding
+            s1_local_patch_size = 7,  # stage 1 - patch size for local attention
+            s1_global_k = 7,          # stage 1 - global attention key / value reduction factor, defaults to 7 as specified in paper
+            s1_depth = 1,             # stage 1 - number of transformer blocks (local attn -> ff -> global attn -> ff)
+            s2_emb_dim = 128,         # stage 2 (same as above)
+            s2_patch_size = 2,
+            s2_local_patch_size = 7,
+            s2_global_k = 7,
+            s2_depth = 1,
+            s3_emb_dim = 256,         # stage 3 (same as above)
+            s3_patch_size = 2,
+            s3_local_patch_size = 7,
+            s3_global_k = 7,
+            s3_depth = 5,
+            s4_emb_dim = 512,         # stage 4 (same as above)
+            s4_patch_size = 2,
+            s4_local_patch_size = 7,
+            s4_global_k = 7,
+            s4_depth = 4,
+            peg_kernel_size = 3,      # positional encoding generator kernel size
+            dropout = 0.              # dropout
+        )  
     else:
         print("Invalid model name, exiting...")
         exit()
