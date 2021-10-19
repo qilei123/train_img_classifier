@@ -46,6 +46,7 @@ import matplotlib.pyplot as plt
 import time
 import os
 import copy
+import random
 
 import inceptionv4
 from inceptionv4 import *
@@ -757,7 +758,14 @@ model_ft = models.densenet121(pretrained=True)
 num_ftrs = model_ft.classifier.in_features
 model_ft.classifier = nn.Linear(num_ftrs, 2) 
 '''
-
+def seed_everything(seed):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
 
 model_ft = model_ft.to(device)
 
@@ -770,6 +778,9 @@ else:
 if not adam:
     optimizer_ft = optim.SGD(model_ft.parameters(), lr=learning_rate, momentum=0.9)
 else:
+    gamma = 0.7
+    seed = 42
+    seed_everything(seed)
     optimizer_ft = optim.Adam(model_ft.parameters(), lr=learning_rate)
 
 # Decay LR by a factor of 0.1 every 7 epochs
