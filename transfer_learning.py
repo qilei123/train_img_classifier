@@ -512,7 +512,7 @@ elif use_randomaffine:
     data_transforms = {
         'train': transforms.Compose([
             #transforms.RandomResizedCrop(input_size),
-            transforms.RandomAffine(45),
+            transforms.RandomAffine(180),
             transforms.Resize((input_size,input_size)),
             #transforms.CenterCrop(input_size),
             transforms.RandomHorizontalFlip(),
