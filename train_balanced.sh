@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=2
 DATA_DIR=/data2/qilei_chen/DATA/gastro_position_clasification/
 OUTPUT_DIR=/data2/qilei_chen/DATA/gastro_position_clasification/work_dir_balanced
 
