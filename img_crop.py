@@ -124,3 +124,5 @@ def process_videos(src_dir,dst_dir):
         while success:
             success,frame = video_reader.read()
         '''
+
+process_videos("/data2/DB_GI/videos","/data2/DB_GI/processed_videos")
