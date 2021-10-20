@@ -104,6 +104,8 @@ print("裁剪完毕")
 
 def process_videos(src_dir,dst_dir):
     
+    roi_dic={576:[224, 47, 690, 535],720:[466, 24, 1239, 696]}
+
     video_dirs = glob.glob(os.path.join(src_dir,"*.avi"))
 
     for video_dir in video_dirs:
@@ -111,22 +113,23 @@ def process_videos(src_dir,dst_dir):
         processed_video_dir = os.path.join(dst_dir,video_name)
         video_reader = cv2.VideoCapture(video_dir)
         success,frame = video_reader.read()
-        croped_frame,roi=crop_img(frame)
-        save_img_dir = os.path.join(dst_dir,video_name+".jpg")
-        cv2.imwrite(save_img_dir,croped_frame)
-        print(save_img_dir)
-        print(roi)
-        print(frame.shape)
-        '''
+        #croped_frame,roi=crop_img(frame)
+        #save_img_dir = os.path.join(dst_dir,video_name+".jpg")
+        #cv2.imwrite(save_img_dir,croped_frame)
+        #print(save_img_dir)
+        roi = roi_dic[frame.shape[0]]
+        #print(frame.shape)
+        
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         video_writer = cv2.VideoWriter(
             processed_video_dir, fourcc, video_reader.get(cv2.CAP_PROP_FPS),
-            (int(video_reader.get(cv2.CAP_PROP_FRAME_WIDTH)),
-            int(video_reader.get(cv2.CAP_PROP_FRAME_HEIGHT))))        
-
+            (int(roi[2]-roi[0]),
+            int(roi[3]-roi[1])))        
 
         while success:
+            cropped_frame = crop_img(frame,roi)
+            video_writer.write(cropped_frame)
             success,frame = video_reader.read()
-        '''
+        
 
 process_videos("/data2/DB_GI/videos","/data2/DB_GI/processed_videos")
