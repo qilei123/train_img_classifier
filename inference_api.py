@@ -874,7 +874,10 @@ def create_confusion_matrix_endoscope3():
     model_dir = "/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2/best.model"
     model = classifier(224,model_name=model_name,class_num_=len(labels))
     model.ini_model(model_dir)
-    show_confusion_matrix(model,"/data3/qilei_chen/DATA/endoscope3/val",labels)
+    show_confusion_matrix(model,
+        "/data3/qilei_chen/DATA/endoscope3/val",
+        "/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2",
+        labels)
 
 if __name__ == "__main__":
     '''
