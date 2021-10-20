@@ -878,7 +878,32 @@ def create_confusion_matrix_endoscope3():
         "/data3/qilei_chen/DATA/endoscope3/val",
         "/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2",
         labels)
+def test_on_videos_endoscope3():
+    src_dir = "/data2/DB_GI/processed_videos"
+    results_dir = "/data2/DB_GI/processed_videos_result"
 
+    video_dirs = glob.glob(os.path.join(src_dir,"*.avi"))
+    
+    model_name="resnet50"
+    labels = ['colonoscopy', 'extracorporal', 'gastroscopy']
+    model_dir = "/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2/best.model"
+    model = classifier(224,model_name=model_name,class_num_=len(labels))
+    model.ini_model(model_dir)    
+
+    for video_dir in video_dirs:
+        video_name = os.path.basename(video_dir)
+        result_dir = os.path.join(results_dir,video_name+".txt")
+
+        result_file = open(result_dir,'w')
+
+        video_reader = cv2.VideoCapture(video_dir)
+        success,frame = video_reader.read()
+        frame_index=1
+        while success:
+            predict_label = model.predict(frame)
+            result_file.write(str(frame_index)+" #"+str(predict_label[0])+"\n")
+            frame_index+=1
+            success,frame = video_reader.read()     
 if __name__ == "__main__":
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
@@ -946,6 +971,7 @@ if __name__ == "__main__":
     #test_videos()
     #create_confusion_matrix()
     #test_batch()
-    create_confusion_matrix_endoscope3()
+    #create_confusion_matrix_endoscope3()
+    test_on_videos_endoscope3()
     pass
 
