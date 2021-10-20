@@ -115,6 +115,7 @@ def process_videos(src_dir,dst_dir):
         save_img_dir = os.path.join(dst_dir,video_name+".jpg")
         cv2.imwrite(save_img_dir,croped_frame)
         print(roi)
+        print(frame.shape)
         '''
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         video_writer = cv2.VideoWriter(
