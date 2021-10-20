@@ -114,6 +114,7 @@ def process_videos(src_dir,dst_dir):
         croped_frame,roi=crop_img(frame)
         save_img_dir = os.path.join(dst_dir,video_name+".jpg")
         cv2.imwrite(save_img_dir,croped_frame)
+        print(save_img_dir)
         print(roi)
         print(frame.shape)
         '''
