@@ -112,6 +112,8 @@ def process_videos(src_dir,dst_dir):
         video_reader = cv2.VideoCapture(video_dir)
         success,frame = video_reader.read()
         croped_frame,roi=crop_img(frame)
+        save_img_dir = os.path.join(dst_dir,video_name+".jpg")
+        cv2.imwrite(save_img_dir,croped_frame)
         print(roi)
         '''
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
