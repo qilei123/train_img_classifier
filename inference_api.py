@@ -868,6 +868,14 @@ def test_batch():
     img_batch = [image1,image2]
     print(model.predict_batch(img_batch))       
 
+def create_confusion_matrix_endoscope3():
+    model_name="resnet50"
+    labels = ['colonoscopy', 'extracorporal', 'gastroscopy']
+    model_dir = "/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2/best.model"
+    model = classifier(224,model_name=model_name,class_num_=len(labels))
+    model.ini_model(model_dir)
+    show_confusion_matrix(model,"/data3/qilei_chen/DATA/endoscope3/work_dir/resnet50_2/val",labels)
+
 if __name__ == "__main__":
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
@@ -932,8 +940,9 @@ if __name__ == "__main__":
     except:
         print("Error: unable to start thread")
     '''
-    test_videos()
+    #test_videos()
     #create_confusion_matrix()
     #test_batch()
+    create_confusion_matrix_endoscope3()
     pass
 
