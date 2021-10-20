@@ -104,7 +104,7 @@ print("裁剪完毕")
 
 def process_videos(src_dir,dst_dir):
     
-    video_dirs = glob.glob(src_dir,"*.avi")
+    video_dirs = glob.glob(os.path.join(src_dir,"*.avi"))
 
     for video_dir in video_dirs:
         video_name = os.path.basename(video_dir)
