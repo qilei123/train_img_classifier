@@ -807,10 +807,10 @@ def test_db_quality(root,records_dir,model_dir):
             quality_records.write(file_dir+" "+str(quality_label)+"\n")
         file_dir = records_file.readline()
 
-def show_confusion_matrix(model,folder_dir,label_list):
+def show_confusion_matrix(model,folder_dir,result_dir,label_list):
     
     for label in label_list:
-        record_file = open(os.path.join(folder_dir,str(label)+".txt"),'w')
+        record_file = open(os.path.join(result_dir,str(label)+".txt"),'w')
         img_list = glob.glob(os.path.join(folder_dir,str(label),'*.jpg'))
         count = [0]*(len(label_list))
         for img_dir in img_list:
