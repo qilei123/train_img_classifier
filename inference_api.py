@@ -904,6 +904,23 @@ def test_on_videos_endoscope3():
             result_file.write(str(frame_index)+" #"+str(predict_label[0])+"\n")
             frame_index+=1
             success,frame = video_reader.read()     
+
+def create_confusion_matrix_huimangban():
+    model_names=["resnet50","mobilenetv2"]
+    folder_names = ["huimangban_3cls","huimangban_3cls_cropped"]
+    balances = ["","_balanced"]
+    labels = ['0', '1', '2']
+    for balance in balances:
+        for folder_name in folder_names:
+            for model_name in model_names:
+                model_dir = "/data3/qilei_chen/DATA/"+folder_name+"/work_dir"+balance+"/"+model_name+"_2/best.model"
+                model = classifier(224,model_name=model_name,class_num_=len(labels))
+                model.ini_model(model_dir)
+                print(balance+"-------"+folder_name+"-------"+model_name)
+                show_confusion_matrix(model,
+                    "/data3/qilei_chen/DATA/"+folder_name+"/val",
+                    "/data3/qilei_chen/DATA/"+folder_name+"/work_dir"+balance+"/"+model_name+"_2",
+                    labels)
 if __name__ == "__main__":
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
@@ -972,6 +989,7 @@ if __name__ == "__main__":
     #create_confusion_matrix()
     #test_batch()
     #create_confusion_matrix_endoscope3()
-    test_on_videos_endoscope3()
+    #test_on_videos_endoscope3()
+    create_confusion_matrix_huimangban()
     pass
 
