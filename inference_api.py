@@ -916,11 +916,32 @@ def create_confusion_matrix_huimangban():
                 model_dir = "/data3/qilei_chen/DATA/"+folder_name+"/work_dir"+balance+"/"+model_name+"_2/best.model"
                 model = classifier(224,model_name=model_name,class_num_=len(labels))
                 model.ini_model(model_dir)
-                print(balance+"-------"+folder_name+"-------"+model_name)
+                print(balance+"-------"+folder_name+"---------"+model_name)
                 show_confusion_matrix(model,
                     "/data3/qilei_chen/DATA/"+folder_name+"/val",
                     "/data3/qilei_chen/DATA/"+folder_name+"/work_dir"+balance+"/"+model_name+"_2",
                     labels)
+def test_on_videos_huimangban():
+    record_file ="/data3/qilei_chen/DATA/hmb_gt.txt"
+    rf = open(record_file)
+    line = rf.readline()
+    model_name = "mobilenetv2"
+    labels = ['0', '1', '2']
+    model_dir = "/data3/qilei_chen/DATA/huimangban_3cls/work_dir_balanced/mobilenetv2_2/best.model"
+    model = classifier(224,model_name=model_name,class_num_=len(labels))
+    model.ini_model(model_dir)
+    video_dir = "/data2/yli/third_c_videos_split/"
+    while line:
+        eles = line.split(",")
+        video_name = eles[0]
+        images = glob.glob(os.path.join(video_dir,video_name,"*.jpg"))
+        result_file = open("/data3/qilei_chen/DATA/huimangban_3cls/work_dir_balanced/mobilenetv2_2/"+video_name+".txt",'w')
+        for i in range(len(images)):
+            if os.path.exists(os.path.join(video_dir,video_name,str(i)+".jpg")):
+                predict_label,_ = model.predict1(os.path.join(video_dir,video_name,str(i)+".jpg"))
+                result_file.write(str(i)+"#"+str(predict_label))
+
+        line = rf.readline()
 if __name__ == "__main__":
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
@@ -990,6 +1011,7 @@ if __name__ == "__main__":
     #test_batch()
     #create_confusion_matrix_endoscope3()
     #test_on_videos_endoscope3()
-    create_confusion_matrix_huimangban()
+    #create_confusion_matrix_huimangban()
+    test_on_videos_huimangban()
     pass
 
