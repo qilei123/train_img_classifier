@@ -939,7 +939,7 @@ def test_on_videos_huimangban():
         for i in range(len(images)):
             if os.path.exists(os.path.join(video_dir,video_name,str(i)+".jpg")):
                 predict_label,_ = model.predict1(os.path.join(video_dir,video_name,str(i)+".jpg"))
-                result_file.write(str(i)+"#"+str(predict_label))
+                result_file.write(str(i)+" #"+str(predict_label)+"\n")
 
         line = rf.readline()
 if __name__ == "__main__":
