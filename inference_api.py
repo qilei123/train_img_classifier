@@ -942,7 +942,8 @@ def test_on_videos_huimangban():
                 result_file.write(str(i)+" #"+str(predict_label)+"\n")
 
         line = rf.readline()
-if __name__ == "__main__":
+
+def elder_main():
     '''
     model_dir = "/media/cql/DATA0/DEVELOPMENT/ai_4_eye_client_interface/temp_update/retina_quality.pth"
     test_db_quality("/media/cql/DATA0/DEVELOPMENT/xiangyaDB/","jpgs.txt",model_dir)
@@ -1012,6 +1013,32 @@ if __name__ == "__main__":
     #create_confusion_matrix_endoscope3()
     #test_on_videos_endoscope3()
     #create_confusion_matrix_huimangban()
-    test_on_videos_huimangban()
+    #test_on_videos_huimangban()
+    pass
+def sample_image_get_roi(video_dir,frame_index):
+
+    cap = cv2.VideoCapture(video_dir)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
+
+    success,frame = cap.read()
+
+    if success:
+        save_dir = '/home/qilei/Downloads/changjing_issues/sample_frames/'
+        cv2.imwrite(os.path.join(save_dir,os.path.basename(video_dir)+"_"+str(frame_index)+".jpg"),frame)
+
+
+def get_videos_rois():
+
+    root_dir = '/home/qilei/Downloads/changjing_issues/'
+    video_name = '20220127_112321_01_r04_olbs260.mp4'
+
+    video_dir = os.path.join(root_dir,video_name)
+
+    sample_image_get_roi(video_dir,16200)
+
+    pass
+
+if __name__ == "__main__":
+    get_videos_rois()
     pass
 
