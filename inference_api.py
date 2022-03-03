@@ -28,6 +28,7 @@ def micros(t1, t2):
     delta = (t2-t1).microseconds
     return delta
 
+from img_crop import crop_img
 
 import threading
 class classifier:
