@@ -1051,7 +1051,7 @@ def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925])
         for j in range(periods[i*2],periods[i*2+1]):
             crop_frame = crop_img(frame,roi)
             label = model.predict(crop_frame)
-            result_file.write(str(i)+" #"+str(label)+"\n")
+            result_file.write(str(j)+" #"+str(label)+"\n")
             success, frame = cap.read()
             if not success:
                 break
