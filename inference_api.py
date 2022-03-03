@@ -1045,7 +1045,7 @@ def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925])
     
     cap = cv2.VideoCapture(video_dir)
     result_file = open(video_dir+".txt",'w')
-    for i in range(len(periods)/2):
+    for i in range(int(len(periods)/2)):
         cap.set(cv2.CAP_PROP_POS_FRAMES, periods[i*2])
         success, frame = cap.read()
         for j in range(periods[i*2],periods[i*2+1]):
