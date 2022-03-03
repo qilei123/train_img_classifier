@@ -1024,7 +1024,9 @@ def sample_image_get_roi(video_dir,frame_index):
 
     if success:
         save_dir = '/home/qilei/Downloads/changjing_issues/sample_frames/'
-        cv2.imwrite(os.path.join(save_dir,os.path.basename(video_dir)+"_"+str(frame_index)+".jpg"),frame)
+        crop_frame,roi = crop_img(frame)
+        print(roi)
+        cv2.imwrite(os.path.join(save_dir,os.path.basename(video_dir)+"_"+str(frame_index)+".jpg"),crop_frame)
 
 
 def get_videos_rois():
