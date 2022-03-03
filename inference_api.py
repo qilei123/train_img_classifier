@@ -268,7 +268,8 @@ class classifier:
         #print(probilities)
         
         #print(micros(t1,t2)/1000)
-        return probilities.index(max(probilities)),probilities
+        #return probilities.index(max(probilities)),probilities
+        return probilities.index(max(probilities))
     def predict_batch(self,img_batch):
         batch = []
         for img in img_batch:
@@ -1029,7 +1030,6 @@ def sample_image_get_roi(video_dir,frame_index):
         print(roi)
         cv2.imwrite(os.path.join(save_dir,os.path.basename(video_dir)+"_"+str(frame_index)+".jpg"),crop_frame)
 
-
 def get_videos_rois():
 
     root_dir = '/home/qilei/Downloads/changjing_issues/'
@@ -1041,7 +1041,36 @@ def get_videos_rois():
 
     pass
 
+def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925]):
+    
+    cap = cv2.VideoCapture(video_dir)
+    result_file = open(video_dir+".txt",'w')
+    for i in range(len(periods)/2):
+        cap.set(cv2.CAP_PROP_POS_FRAMES, periods[i*2])
+        success, frame = cap.read()
+        for j in range(periods[i*2],periods[i*2+1]):
+            crop_frame = crop_img(frame,roi)
+            label = model.predict(crop_frame)
+            result_file.write(str(i)+" #"+str(label)+"\n")
+            success, frame = cap.read()
+            if not success:
+                break
+
+def process_model_on_videos():
+    root_dir = '/home/qilei/Downloads/changjing_issues/'
+    video_name = '20220127_112321_01_r04_olbs260.mp4'
+
+    video_dir = os.path.join(root_dir,video_name)
+
+    pth_dir = '/home/qilei/.DEVELOPMENT/models/mobilenetv2_5class.pth'
+    model_name = 'mobilenetv2'
+    labels = [1,2,3,4,5]
+    model = classifier(224,model_name=model_name,class_num_=len(labels))
+    model.ini_model(pth_dir)
+    process_video_periods(model,video_dir,[16200,20000])
+
 if __name__ == "__main__":
-    get_videos_rois()
+    #get_videos_rois()
+    process_model_on_videos()
     pass
 
