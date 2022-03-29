@@ -13,4 +13,6 @@ export CUDA_VISIBLE_DEVICES=0
 export DATA_DIR=/data/qilei/.DATASETS/Endoskop4INOUT/binary/
 export OUTPUT_DIR=${DATA_DIR}work_dir
 
-python transfer_learning.py -m ViT -d $DATA_DIR -o $OUTPUT_DIR -c 2 -b 128 -l 0.1 -p True
+python transfer_learning.py -m resnet152 -d $DATA_DIR -o $OUTPUT_DIR -c 2 -b 128 -l 0.1 -p True
+
+python transfer_learning.py -m resnet50 -d $DATA_DIR -o $OUTPUT_DIR -c 2 -b 128 -l 0.1 -p True
