@@ -1044,7 +1044,7 @@ def get_videos_rois():
 def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925]):
     
     cap = cv2.VideoCapture(video_dir)
-    result_file = open(video_dir+".txt",'w')
+    result_file = open(video_dir+"_v2.txt",'w')
     for i in range(int(len(periods)/2)):
         cap.set(cv2.CAP_PROP_POS_FRAMES, periods[i*2])
         success, frame = cap.read()
@@ -1058,16 +1058,21 @@ def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925])
 
 def process_model_on_videos():
     root_dir = '/home/qilei/Downloads/changjing_issues/'
-    video_name = '20220127_112321_01_r04_olbs260.mp4'
+    video_name = '20210408160002.avi'
 
     video_dir = os.path.join(root_dir,video_name)
 
-    pth_dir = '/home/qilei/.DEVELOPMENT/models/mobilenetv2_5class.pth'
-    model_name = 'mobilenetv2'
-    labels = [1,2,3,4,5]
+    #pth_dir = '/home/qilei/.DEVELOPMENT/models/mobilenetv2_5class.pth'
+    #model_name = 'mobilenetv2'
+    #labels = [1,2,3,4,5]
+    
+    pth_dir = '/home/qilei/.DEVELOPMENT/models/v2_binary.model'
+    model_name = 'resnet152'
+    labels = [1,2]
+    
     model = classifier(224,model_name=model_name,class_num_=len(labels))
     model.ini_model(pth_dir)
-    process_video_periods(model,video_dir,[18000,22000])
+    process_video_periods(model,video_dir,[18000,18600],[300, 1, 1620, 1010])
 
 if __name__ == "__main__":
     #get_videos_rois()
