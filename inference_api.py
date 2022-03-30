@@ -1058,7 +1058,7 @@ def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925])
 
 def process_model_on_videos():
     root_dir = '/home/qilei/Downloads/changjing_issues/'
-    video_name = '20220112_110322_01_r05_fs7000.mp4'
+    video_name = '20210408160002.avi'
 
     video_dir = os.path.join(root_dir,video_name)
 
@@ -1066,13 +1066,13 @@ def process_model_on_videos():
     #model_name = 'mobilenetv2'
     #labels = [1,2,3,4,5]
     
-    pth_dir = '/home/qilei/.DEVELOPMENT/models/v2_binary.model'
+    pth_dir = '/data/qilei/.DATASETS/Endoskop4INOUT/binary/work_dir/resnet152_2/best.model'
     model_name = 'resnet152'
     labels = [1,2]
     
     model = classifier(224,model_name=model_name,class_num_=len(labels))
     model.ini_model(pth_dir)
-    process_video_periods(model,video_dir,[3600,3900],[60,60,1305,1017])
+    process_video_periods(model,video_dir,[18000,18600],[300, 1, 1620, 1010])
 
 if __name__ == "__main__":
     #get_videos_rois()
