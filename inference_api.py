@@ -1058,7 +1058,7 @@ def process_video_periods(model,video_dir,periods=[],roi = [668, 73, 1582, 925])
 
 def process_model_on_videos():
     root_dir = '/home/qilei/Downloads/changjing_issues/'
-    video_name = '李超满.mp4'
+    video_name = '15.mp4'
 
     video_dir = os.path.join(root_dir,video_name)
 
@@ -1072,7 +1072,7 @@ def process_model_on_videos():
     
     model = classifier(224,model_name=model_name,class_num_=len(labels))
     model.ini_model(pth_dir)
-    process_video_periods(model,video_dir,[16875,17100],[670, 1, 1915, 1077])
+    process_video_periods(model,video_dir,[27000,27150],[60, 60, 1305, 1017])
 
 if __name__ == "__main__":
     #get_videos_rois()
