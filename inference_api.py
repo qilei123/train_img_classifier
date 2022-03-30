@@ -1072,7 +1072,7 @@ def process_model_on_videos():
     
     model = classifier(224,model_name=model_name,class_num_=len(labels))
     model.ini_model(pth_dir)
-    process_video_periods(model,video_dir,[18000,18600],[300, 1, 1620, 1010])
+    process_video_periods(model,video_dir,[18000,18600],[1, 1, 1280, 1024])
 
 if __name__ == "__main__":
     #get_videos_rois()
